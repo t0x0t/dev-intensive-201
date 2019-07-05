@@ -7,6 +7,7 @@ import ru.skillbranch.devintensive.extensions.TimeUnits
 import ru.skillbranch.devintensive.extensions.add
 import ru.skillbranch.devintensive.extensions.format
 import ru.skillbranch.devintensive.extensions.toUserView
+import ru.skillbranch.devintensive.models.BaseMessage
 //import ru.skillbranch.devintensive.models.BaseMessage
 import ru.skillbranch.devintensive.models.Chat
 import ru.skillbranch.devintensive.models.ImageMessage
@@ -72,8 +73,12 @@ fun tetest ()
         print("$User1,\n $User2, \n $User3")
     }
     @Test
-    fun imgmsg() {
-    var imggmsg :ImageMessage
+    fun imgtest() {
+    val user100 = User.makeUser("Котлина Кусок")
+        val txtmsg = BaseMessage.makeMessage(user100, Chat(id="0"), payload = "any text", type = "text")
+        val imgmsg = BaseMessage.makeMessage(user100, Chat(id="0"), payload = "any text", type = "image")
+        println(txtmsg.formatMessage())
+        print(imgmsg.formatMessage())
     }
 
 

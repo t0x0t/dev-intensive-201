@@ -22,4 +22,12 @@ object Utils {
             return Pair(firstName, lastName)
         }
     }
+
+    fun transliteration(payload: String?, divider:String = " "): String {
+return "0"
+    }
+
+    fun toInitials(firstName: String?, lastName: String?): String? {
+return (firstName)
+    }
 }

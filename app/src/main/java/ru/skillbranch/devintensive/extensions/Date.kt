@@ -11,7 +11,7 @@ val HOUR = 60 * MINUTE
 val DAY = 24 * HOUR
 
 fun Date.format(pattern:String="HH:mm:ss dd.MM.yy"):String{
-    var dateFormat = SimpleDateFormat(pattern, Locale("ru"))
+    val dateFormat = SimpleDateFormat(pattern, Locale("ru"))
     return dateFormat.format(this)
 }
 
@@ -26,6 +26,8 @@ fun Date.add(value: Int, units: TimeUnits = TimeUnits.SECOND):Date{
     this.time = time
     return this
 }
+
+//fun Date.humanizeDiff(date: Date = Date()):String {}
 
 enum class TimeUnits {
     SECOND,

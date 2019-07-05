@@ -48,49 +48,68 @@ var Pipka:User=User.makeUser("BOl Shoi")
   }*/
     @Test
     fun Test500() {
-val user53 = User.makeUser("Loop Pllo")
+        val user53 = User.makeUser("Loop Pllo")
         val user2 = user53.copy(lastVisit = Date(), isOnline = true)
         println(user53)
         println(user2)
     }
 
     @Test
-    fun tetete(){
+    fun tetete() {
         val userRen = User.makeUser("Мак Сим")
         println(userRen)
         val viewww = userRen.toUserView()
         println("NNNNNN" + viewww)
     }
+
     @Test
-fun tetest ()
-    {
-        val User1 = User (id="1")
-        val User2 = User (id="12",firstName =  "piska", lastName = "iav")
-        val User3 = User (id="13", firstName = "pipirka", lastName = "vodka")
+    fun tetest() {
+        val User1 = User(id = "1")
+        val User2 = User(id = "12", firstName = "piska", lastName = "iav")
+        val User3 = User(id = "13", firstName = "pipirka", lastName = "vodka")
         User1.pintMe()
         User2.pintMe()
         User3.pintMe()
         print("$User1,\n $User2, \n $User3")
     }
+
     @Test
     fun imgtest() {
-    val user100 = User.makeUser("Котлина Кусок")
-        val txtmsg = BaseMessage.makeMessage(user100, Chat(id="0"), date = Date().add(5, TimeUnits.HOUR),payload = "any text", type = "text")
-        val imgmsg = BaseMessage.makeMessage(user100, Chat(id="0"), date=Date(), payload = "any text", type = "image")
+        val user100 = User.makeUser("Котлина Кусок")
+        val txtmsg = BaseMessage.makeMessage(
+            user100,
+            Chat(id = "0"),
+            date = Date().add(5, TimeUnits.HOUR),
+            payload = "any text",
+            type = "text"
+        )
+        val imgmsg =
+            BaseMessage.makeMessage(user100, Chat(id = "0"), date = Date(), payload = "any text", type = "image")
         println(txtmsg.formatMessage())
         print(imgmsg.formatMessage())
     }
-@Test
-fun initialTest(){
-    println(Utils.toInitials("john" ,"doe"))
+
+
+    /*println(Utils.parseFullName("john doe"))
+    println(Utils.parseFullName(" doe"))
+    println(Utils.parseFullName("john "))
+    println(Utils.parseFullName("john"))
+    println(Utils.parseFullName(null))
+    println(Utils.parseFullName(""))
+    println(Utils.parseFullName("   "))
     println(Utils.toInitials("John", null))
     println(Utils.toInitials(null, null)) //null
     println(Utils.toInitials(" ", ""))
-    println(Utils.toInitials("", "test"))
+    println(Utils.toInitials("", "test"))*/
 
-}
+        @Test
 
-}
+        fun testTTt(){
+            print(Utils.transliteration("      Зощя      ВласовънаяРТАь   УчИла   котлиин", divider = "_"))
+        }
+    }
+
+
 
 
 

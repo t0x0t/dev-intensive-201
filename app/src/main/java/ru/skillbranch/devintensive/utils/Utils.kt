@@ -16,15 +16,9 @@ object Utils {
 
         if (firstName.isNullOrBlank()) {
             return Pair(null, lastName)
-        }
-
-        else {
+        } else {
             return Pair(firstName, lastName)
         }
-    }
-    //module6 FAILED org.junit.ComparisonFailure: expected:<[ММ]> but was:<[мм]>
-    fun transliteration(payload: String?, divider:String = " "): String {
-return "0"
     }
 
     fun toInitials(firstName: String?, lastName: String?): String? {
@@ -34,7 +28,7 @@ return "0"
         }
 
         if (firstName.isNullOrBlank()) {
-            val lastInitial=lastName?.get(0)
+            val lastInitial = lastName?.get(0)
             val lastInitialUp = lastInitial.toString()
             return lastInitialUp.toUpperCase()
         }
@@ -43,9 +37,7 @@ return "0"
             val firstInitial = firstName.get(0)
             val firstInitialUp = firstInitial.toString()
             return firstInitialUp.toUpperCase()
-        }
-
-        else {
+        } else {
 
             val firstInitial = firstName.get(0)
             val lastInitial = lastName.get(0)
@@ -53,6 +45,62 @@ return "0"
             val lastInitialUp = lastInitial.toString()
             val fullInitials: String? = firstInitialUp.toUpperCase() + lastInitialUp.toUpperCase()
             return fullInitials
+        }
+    }
+
+    fun transliteration(payload: String?, divider: String = " "): String {
+        if (payload == null || payload == "") {
+            return "Передай Значение, Подонок"
+        } else {
+            val payloadLow = payload.toLowerCase().trim().replace("\\s+".toRegex(), " ")
+            val translit: String = payloadLow.replace(Regex("[абвгдеёжзийклмнопрстуфхцчшщъыьэюя]")) {
+                when (it.value) {
+                    "а" -> "a"
+                    "б" -> "b"
+                    "в" -> "v"
+                    "г" -> "g"
+                    "д" -> "d"
+                    "е" -> "e"
+                    "ё" -> "e"
+                    "ж" -> "zh"
+                    "з" -> "z"
+                    "и" -> "i"
+                    "й" -> "i"
+                    "к" -> "k"
+                    "л" -> "l"
+                    "м" -> "m"
+                    "н" -> "n"
+                    "о" -> "o"
+                    "п" -> "p"
+                    "р" -> "r"
+                    "с" -> "s"
+                    "т" -> "t"
+                    "у" -> "u"
+                    "ф" -> "f"
+                    "х" -> "h"
+                    "ц" -> "c"
+                    "ч" -> "ch"
+                    "ш" -> "sh"
+                    "щ" -> "sh'"
+                    "ъ" -> ""
+                    "ы" -> "i"
+                    "ь" -> ""
+                    "э" -> "e"
+                    "ю" -> "yu"
+                    "я" -> "ya"
+                    else -> it.value
+                }
+            }
+            val parts: List<String> = translit.split(" ")
+            var n: Int = 0
+            var translUpFirst: String = ""
+            while (parts.size-1 != n) {
+                translUpFirst += parts.get(n).capitalize() + divider
+                n++
+            }
+            translUpFirst += parts.get(n).capitalize()
+            return translUpFirst
+
         }
     }
 }

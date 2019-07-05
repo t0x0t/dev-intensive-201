@@ -75,8 +75,8 @@ fun tetest ()
     @Test
     fun imgtest() {
     val user100 = User.makeUser("Котлина Кусок")
-        val txtmsg = BaseMessage.makeMessage(user100, Chat(id="0"), payload = "any text", type = "text")
-        val imgmsg = BaseMessage.makeMessage(user100, Chat(id="0"), payload = "any text", type = "image")
+        val txtmsg = BaseMessage.makeMessage(user100, Chat(id="0"), date = Date().add(5, TimeUnits.HOUR),payload = "any text", type = "text")
+        val imgmsg = BaseMessage.makeMessage(user100, Chat(id="0"), date=Date(), payload = "any text", type = "image")
         println(txtmsg.formatMessage())
         print(imgmsg.formatMessage())
     }

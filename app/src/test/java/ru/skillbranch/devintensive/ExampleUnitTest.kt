@@ -80,7 +80,15 @@ fun tetest ()
         println(txtmsg.formatMessage())
         print(imgmsg.formatMessage())
     }
+@Test
+fun initialTest(){
+    println(Utils.toInitials("john" ,"doe"))
+    println(Utils.toInitials("John", null))
+    println(Utils.toInitials(null, null)) //null
+    println(Utils.toInitials(" ", ""))
+    println(Utils.toInitials("", "Test"))
 
+}
 
 }
 

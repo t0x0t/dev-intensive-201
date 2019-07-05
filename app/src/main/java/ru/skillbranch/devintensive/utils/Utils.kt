@@ -28,6 +28,26 @@ return "0"
     }
 
     fun toInitials(firstName: String?, lastName: String?): String? {
-return (firstName)
+
+        if (firstName.isNullOrBlank() && lastName.isNullOrBlank()) {
+            return null
+        }
+
+        if (firstName.isNullOrBlank()) {
+            var lastInitial=lastName?.get(0)
+            return lastInitial.toString()
+        }
+
+        if (lastName.isNullOrBlank()) {
+            var firstInitial = firstName.get(0)
+            return firstInitial.toString()
+        }
+
+        else {
+            var firstInitial = firstName?.get(0)
+            val lastInitial = lastName?.get(0)
+            val fullInitials: String? = firstInitial.toString() + lastInitial.toString()
+            return fullInitials
+        }
     }
 }

@@ -22,7 +22,7 @@ object Utils {
             return Pair(firstName, lastName)
         }
     }
-
+    //module6 FAILED org.junit.ComparisonFailure: expected:<[ММ]> but was:<[мм]>
     fun transliteration(payload: String?, divider:String = " "): String {
 return "0"
     }
@@ -34,19 +34,24 @@ return "0"
         }
 
         if (firstName.isNullOrBlank()) {
-            var lastInitial=lastName?.get(0)
-            return lastInitial.toString()
+            val lastInitial=lastName?.get(0)
+            val lastInitialUp = lastInitial.toString()
+            return lastInitialUp.toUpperCase()
         }
 
         if (lastName.isNullOrBlank()) {
-            var firstInitial = firstName.get(0)
-            return firstInitial.toString()
+            val firstInitial = firstName.get(0)
+            val firstInitialUp = firstInitial.toString()
+            return firstInitialUp.toUpperCase()
         }
 
         else {
-            var firstInitial = firstName?.get(0)
-            val lastInitial = lastName?.get(0)
-            val fullInitials: String? = firstInitial.toString() + lastInitial.toString()
+
+            val firstInitial = firstName.get(0)
+            val lastInitial = lastName.get(0)
+            val firstInitialUp = firstInitial.toString()
+            val lastInitialUp = lastInitial.toString()
+            val fullInitials: String? = firstInitialUp.toUpperCase() + lastInitialUp.toUpperCase()
             return fullInitials
         }
     }

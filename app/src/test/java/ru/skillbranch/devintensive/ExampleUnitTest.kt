@@ -86,7 +86,7 @@ fun initialTest(){
     println(Utils.toInitials("John", null))
     println(Utils.toInitials(null, null)) //null
     println(Utils.toInitials(" ", ""))
-    println(Utils.toInitials("", "Test"))
+    println(Utils.toInitials("", "test"))
 
 }
 

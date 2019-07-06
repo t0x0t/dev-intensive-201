@@ -107,15 +107,13 @@ var Pipka:User=User.makeUser("BOl Shoi")
         assertEquals("Zhenya Stereotipov", Utils.transliteration("Женя Стереотипов"))
         assertEquals("Amazing_Petr", Utils.transliteration("Amazing Петр", "_"))
         assertEquals("123|!,^-=+><|english", Utils.transliteration("123 !,^-=+>< english", "|"))
-        /* additional tests
-        assertEquals("iVan     Stereotizhov", Utils.transliteration("иВан     Стереотижов"))
+                assertEquals("iVan     Stereotizhov", Utils.transliteration("иВан     Стереотижов"))
         assertEquals("Amazing_PeZhr", Utils.transliteration("Amazing ПеЖр", "_"))
         assertEquals("aAbBvVgGdDeEeEzhZhzZiIiIkKlL", Utils.transliteration("аАбБвВгГдДеЕёЁжЖзЗиИйЙкКлЛ"))
         assertEquals("mMnNoOpPrRsStTuUfFhHcCshShsh'Sh'", Utils.transliteration("мМнНоОпПрРсСтТуУфФхХцЦшШщЩ"))
         assertEquals("eEyuYuyaYa", Utils.transliteration("ъЪьЬэЭюЮяЯ"))
-
         assertEquals("Zhizha ZhiZhnaYa", Utils.transliteration("Жижа ЖиЖнаЯ"))
-        assertEquals("Sobaka is a dog", Utils.transliteration("Собака dog", " is a "))*/
+        assertEquals("Sobaka is a dog", Utils.transliteration("Собака dog", " is a "))
     }
 }
 

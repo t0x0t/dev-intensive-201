@@ -52,8 +52,8 @@ object Utils {
         if (payload == null || payload == "") {
             return "Передай Значение, Подонок"
         } else {
-            val payloadLow = payload.toLowerCase()//.trim().replace("\\s+".toRegex(), " ")
-            val translit: String = payloadLow.replace(Regex("[абвгдеёжзийклмнопрстуфхцчшщъыьэюя]")) {
+            //val payloadLow = payload.toLowerCase().trim().replace("\\s+".toRegex(), " ")
+            val translit: String = payload.replace(Regex("[абвгдеёжзийклмнопрстуфхцчшщъыьэюяАБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ]")) {
                 when (it.value) {
                     "а" -> "a"
                     "б" -> "b"
@@ -88,6 +88,39 @@ object Utils {
                     "э" -> "e"
                     "ю" -> "yu"
                     "я" -> "ya"
+                    "А" -> "A"
+                    "Б" -> "B"
+                    "В" -> "V"
+                    "Г" -> "G"
+                    "Д" -> "D"
+                    "Е" -> "E"
+                    "Ё" -> "E"
+                    "Ж" -> "Zh"
+                    "З" -> "Z"
+                    "И" -> "I"
+                    "Й" -> "I"
+                    "К" -> "K"
+                    "Л" -> "L"
+                    "М" -> "M"
+                    "Н" -> "N"
+                    "О" -> "O"
+                    "П" -> "P"
+                    "Р" -> "R"
+                    "С" -> "S"
+                    "Т" -> "T"
+                    "У" -> "U"
+                    "Ф" -> "F"
+                    "Х" -> "H"
+                    "Ц" -> "C"
+                    "Ч" -> "Ch"
+                    "Ш" -> "Sh"
+                    "Щ" -> "Sh'"
+                    "Ъ" -> ""
+                    "Ы" -> "I"
+                    "Ь" -> ""
+                    "Э" -> "E"
+                    "Ю" -> "Yu"
+                    "Я" -> "Ya"
                     else -> it.value
                 }
             }
@@ -95,10 +128,10 @@ object Utils {
             var n: Int = 0
             var translUpFirst: String = ""
             while (parts.size-1 != n) {
-                translUpFirst += parts.get(n).capitalize() + divider
+                translUpFirst += parts.get(n) + divider
                 n++
             }
-            translUpFirst += parts.get(n).capitalize()
+            translUpFirst += parts.get(n)
             return translUpFirst
 
         }

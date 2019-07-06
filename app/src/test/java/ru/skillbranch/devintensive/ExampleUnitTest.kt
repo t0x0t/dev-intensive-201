@@ -101,14 +101,23 @@ var Pipka:User=User.makeUser("BOl Shoi")
     println(Utils.toInitials(null, null)) //null
     println(Utils.toInitials(" ", ""))
     println(Utils.toInitials("", "test"))*/
+    @Test
+    fun transliteration_test() {
+        /* skillBranch tests */
+        assertEquals("Zhenya Stereotipov", Utils.transliteration("Женя Стереотипов"))
+        assertEquals("Amazing_Petr", Utils.transliteration("Amazing Петр", "_"))
+        assertEquals("123|!,^-=+><|english", Utils.transliteration("123 !,^-=+>< english", "|"))
+        /* additional tests
+        assertEquals("iVan     Stereotizhov", Utils.transliteration("иВан     Стереотижов"))
+        assertEquals("Amazing_PeZhr", Utils.transliteration("Amazing ПеЖр", "_"))
+        assertEquals("aAbBvVgGdDeEeEzhZhzZiIiIkKlL", Utils.transliteration("аАбБвВгГдДеЕёЁжЖзЗиИйЙкКлЛ"))
+        assertEquals("mMnNoOpPrRsStTuUfFhHcCshShsh'Sh'", Utils.transliteration("мМнНоОпПрРсСтТуУфФхХцЦшШщЩ"))
+        assertEquals("eEyuYuyaYa", Utils.transliteration("ъЪьЬэЭюЮяЯ"))
 
-        @Test
-
-        fun testTTt(){
-            print(Utils.transliteration("      Зощя      ВласовънаяРТАь   УчИла   котлиин", divider = "_"))
-        }
+        assertEquals("Zhizha ZhiZhnaYa", Utils.transliteration("Жижа ЖиЖнаЯ"))
+        assertEquals("Sobaka is a dog", Utils.transliteration("Собака dog", " is a "))*/
     }
-
+}
 
 
 

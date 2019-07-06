@@ -52,7 +52,7 @@ object Utils {
         if (payload == null || payload == "") {
             return "Передай Значение, Подонок"
         } else {
-            val payloadLow = payload.toLowerCase().trim().replace("\\s+".toRegex(), " ")
+            val payloadLow = payload.toLowerCase()//.trim().replace("\\s+".toRegex(), " ")
             val translit: String = payloadLow.replace(Regex("[абвгдеёжзийклмнопрстуфхцчшщъыьэюя]")) {
                 when (it.value) {
                     "а" -> "a"

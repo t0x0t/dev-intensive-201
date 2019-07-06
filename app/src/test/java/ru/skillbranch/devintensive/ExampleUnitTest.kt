@@ -5,16 +5,13 @@ import org.junit.Test
 import org.junit.Assert.*
 import ru.skillbranch.devintensive.extensions.TimeUnits
 import ru.skillbranch.devintensive.extensions.add
-import ru.skillbranch.devintensive.extensions.format
 import ru.skillbranch.devintensive.extensions.toUserView
 import ru.skillbranch.devintensive.models.BaseMessage
 //import ru.skillbranch.devintensive.models.BaseMessage
 import ru.skillbranch.devintensive.models.Chat
-import ru.skillbranch.devintensive.models.ImageMessage
 import ru.skillbranch.devintensive.models.User
-import ru.skillbranch.devintensive.utils.Utils
+import ru.skillbranch.devintensive.models.User.Builder
 import java.util.*
-import kotlin.concurrent.timer
 
 /**
  * Example local unit test, which will execute on the development machine (host).
@@ -102,18 +99,41 @@ var Pipka:User=User.makeUser("BOl Shoi")
     println(Utils.toInitials(" ", ""))
     println(Utils.toInitials("", "test"))*/
     @Test
-    fun transliteration_test() {
-        /* skillBranch tests */
-        assertEquals("Zhenya Stereotipov", Utils.transliteration("Женя Стереотипов"))
-        assertEquals("Amazing_Petr", Utils.transliteration("Amazing Петр", "_"))
-        assertEquals("123|!,^-=+><|english", Utils.transliteration("123 !,^-=+>< english", "|"))
-                assertEquals("iVan     Stereotizhov", Utils.transliteration("иВан     Стереотижов"))
-        assertEquals("Amazing_PeZhr", Utils.transliteration("Amazing ПеЖр", "_"))
-        assertEquals("aAbBvVgGdDeEeEzhZhzZiIiIkKlL", Utils.transliteration("аАбБвВгГдДеЕёЁжЖзЗиИйЙкКлЛ"))
-        assertEquals("mMnNoOpPrRsStTuUfFhHcCshShsh'Sh'", Utils.transliteration("мМнНоОпПрРсСтТуУфФхХцЦшШщЩ"))
-        assertEquals("eEyuYuyaYa", Utils.transliteration("ъЪьЬэЭюЮяЯ"))
-        assertEquals("Zhizha ZhiZhnaYa", Utils.transliteration("Жижа ЖиЖнаЯ"))
-        assertEquals("Sobaka is a dog", Utils.transliteration("Собака dog", " is a "))
+    fun builderTest(){
+        val date = Date()
+
+        val user1 = User(
+            "5",
+            "Никола",
+            "Тесла",
+            null,
+            0,
+            1000,
+            date.add(-2, TimeUnits.DAY),
+            false)
+
+        val user2 = User.Builder().id("5")
+            .firstName("Никола")
+            .lastName("Тесла")
+            .avatar(null)
+            .rating(0)
+            .respect(1000)
+            .lastVisit(date.add(-2, TimeUnits.DAY))
+            .isOnline(false)
+            .build()
+
+        val user3 = User.Builder().build()
+        assertNotEquals(null, user3.id)
+        assertEquals(user1, user2)
+        assertTrue(user3 is User)
+        assertEquals(null, user3.firstName)
+        assertEquals(null, user3.lastName)
+        assertEquals(null, user3.avatar)
+        assertEquals(0, user3.rating)
+        assertEquals(0, user3.respect)
+        assertNotEquals(null, user3.lastVisit)
+        assertFalse(user3.isOnline)
+
     }
 }
 

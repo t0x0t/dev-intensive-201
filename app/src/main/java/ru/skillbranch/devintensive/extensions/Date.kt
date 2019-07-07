@@ -26,14 +26,14 @@ fun Date.add(value: Int, units: TimeUnits = TimeUnits.SECOND):Date{
     this.time = time
     return this
 }
-//[0-1](2-45](46 - 75] (76 - 45](46 - 75](76-22](23-26](27-360](361....
+//(27-360](361....
 fun Date.humanizeDiff(date: Date = Date()):String {
-    var toSeconds = (this.time - date.time)/1000 //когда результат положительный -  было в прошлом (toSeconds-пол. число)
+    val diff = (this.time - date.time) //когда результат положительный -  было в прошлом (toSeconds-пол. число)
     var name:String = " "
 
-if (toSeconds in -75..75){
+if (diff in -75000..75000){
 
-    when (toSeconds){
+    when (diff/1000){
         in -1..1 -> return "только что"
         in 2..45 -> return "через несколько секунд"
         in -45 ..-2 -> return "несколько секунд назад"
@@ -42,13 +42,12 @@ if (toSeconds in -75..75){
     }
 }
 
-    if (toSeconds in -2759..2759){
-        toSeconds /= 60
-        var toMinutes:Int = toSeconds.toInt()
-        if (toMinutes>=-20 || toMinutes<=20)
+    if (diff in -2759000..2759000){
+        var intDiffMin:Int = (diff.toInt())/1000/60
+        if (intDiffMin>=-20 || intDiffMin<=20)
         {
 
-            when(toMinutes){
+            when(intDiffMin){
                 in -20..-5 -> name = "минут"
                 in -4..-2 -> name = "минуты"
                 in -1..1 -> name = "минуту"
@@ -56,30 +55,31 @@ if (toSeconds in -75..75){
                 in 5..20 -> name = "минут"
             }
         }
-        if (toMinutes in -45..-21 || toMinutes in 21..45)
+        if (intDiffMin in -45..-21 || intDiffMin in 21..45)
         {
+            var toMinutes = intDiffMin/1000/60
             val lastCharMinutes:Char = toMinutes.toString().last()
             val lastNumMinutes:Int = lastCharMinutes.toString().toInt()
-
-            when(lastCharMinutes.toString().toInt()){
+            when((lastCharMinutes.toString().toInt())){
                 1 -> name = "минуту"
                 in 2..4 -> name = "минуты"
                 else -> name = "минут"
             }
         }
-        if (toMinutes>0) {return "через " + toMinutes.toString() + " " + name}
-        else {return (toMinutes.toString().drop(1) + " " + name + " назад")}
+        if (intDiffMin>0) {return "через " + intDiffMin.toString() + " " + name}
+        else {return (intDiffMin.toString().drop(1) + " " + name + " назад")}
 
     }
 
-if (toSeconds in -4559..4559){
-        if(toSeconds>0){return "через час"}
+if (diff in -4559000..4559000){
+        if(diff>0){return "через час"}
         else{return "час назад"}
     }
 
-if (toSeconds in -82799..-4560 || toSeconds in 4560..82799 ){
-        var toHours:Int = (toSeconds/3600).toInt()
+if (diff in -96199999..-4560000 || diff in 4560000..96199999 ){
+        var toHours:Int = ((diff/3600).toInt())/1000
         when (toHours){
+            in -26..-22 -> return "день назад"
             in -23..-22 -> name = "часа"
             -21 -> name = "час"
             in -20..-5 -> name = "часов"
@@ -89,19 +89,20 @@ if (toSeconds in -82799..-4560 || toSeconds in 4560..82799 ){
             in 5..20 -> name = "часов"
             21 -> name ="час"
             in 22..23 -> name ="часа"
+            in 22..26 -> return "через день"
                     }
         if(toHours>0){return "через " + toHours.toString() + " " + name}
         else {return toHours.toString().drop(1) + " " + name + " назад"}
     }
-    //83800 = 23   1299600 = 361 день (!!!вычесть секунду!!!)
-if (toSeconds in -1299599..-83800||toSeconds in 83800..1299599){
-    var toDays:Int = (toSeconds/3600/24).toInt()
-    return toSeconds.toString() + " " + toDays.toString()
+    //97 200 000 - 27часов   1299600000 == 361 день (!!!вычесть тысячную секунды!!!)
+if (diff in -1299599000..-97200000||diff in 97200000..1299599000){
+    var toDays:Int = ((diff/3600).toInt())/1000
+    return diff.toString() + " разница - таймЮнитс " + toDays.toString()
 }
 
     else
     {
-        return (toSeconds/3600).toString()
+        return (diff/3600).toString()
     }
 }
 

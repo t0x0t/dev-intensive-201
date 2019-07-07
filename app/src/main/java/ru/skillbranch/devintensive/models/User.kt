@@ -71,7 +71,7 @@ companion object Factory {
         fun rating(value: Int) = apply { rating = value }
         fun respect(value: Int) = apply { respect = value }
         fun lastVisit(value: Date?) = apply { lastVisit = value }
-        fun isOnline(value: Boolean) = apply { isOnline = value }
+        fun isOnline(isOnline: Boolean) = apply { this.isOnline = isOnline }
         fun build() = User(id, firstName, lastName, avatar, rating, respect, lastVisit, isOnline)
     }
 }

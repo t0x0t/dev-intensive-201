@@ -104,7 +104,7 @@ var Pipka:User=User.makeUser("BOl Shoi")
 
         //var a: Long = (Date().time - Date().add(100, TimeUnits.MINUTE).time) / 1000
         var n: Int = -30
-        while (n <= 30) {
+        while (n <= 300) {
             messageDate.time = currDate.time
             n++
             println(messageDate.add(n, TimeUnits.HOUR).humanizeDiff(currDate))

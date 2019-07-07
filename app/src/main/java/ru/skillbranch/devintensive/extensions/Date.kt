@@ -77,7 +77,7 @@ if (toSeconds in -4559..4559){
         else{return "час назад"}
     }
 
-    if (toSeconds in -82799..-4560 || toSeconds in 4560..82799 ){
+if (toSeconds in -82799..-4560 || toSeconds in 4560..82799 ){
         var toHours:Int = (toSeconds/3600).toInt()
         when (toHours){
             in -23..-22 -> name = "часа"
@@ -93,10 +93,15 @@ if (toSeconds in -4559..4559){
         if(toHours>0){return "через " + toHours.toString() + " " + name}
         else {return toHours.toString().drop(1) + " " + name + " назад"}
     }
+    //83800 = 23   1299600 = 361 день (!!!вычесть секунду!!!)
+if (toSeconds in -1299599..-83800||toSeconds in 83800..1299599){
+    var toDays:Int = (toSeconds/3600/24).toInt()
+    return toSeconds.toString() + " " + toDays.toString()
+}
 
     else
     {
-        return "в разработке"
+        return (toSeconds/3600).toString()
     }
 }
 

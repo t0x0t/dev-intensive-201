@@ -28,12 +28,25 @@ fun String.truncate(lenght:Int = 16):String {
     return trimString + "..."
 }
 
+fun String.stripHtml():String
+{
+   var inputHtml:String = Regex("""<.*?>""").replace(this, "")
 
 
-/*
-fun String.truncate(length: Int = 16): String {
-    var stroka = this.trim()
-    if (stroka.length > length) stroka = "${stroka.substring(0, length).trimEnd()}..."
-    return stroka
+    inputHtml = inputHtml.replace("""&amp;""", "")
+    inputHtml = inputHtml.replace("""&gt;""", "")
+    inputHtml = inputHtml.replace("""&lt;""", "")
+    inputHtml = inputHtml.replace("""&#39;""", "")
+    inputHtml = inputHtml.replace("""&quot;""", "")
+
+    if (inputHtml.contains("\n")){
+        inputHtml = Regex("""\\s+""").replace(inputHtml, " ")
+        inputHtml = Regex("  ").replace(inputHtml, " ")
+    }
+    else
+    {
+        inputHtml = Regex("\\s+").replace(inputHtml, " ")
+    }
+
+    return inputHtml
 }
-*/

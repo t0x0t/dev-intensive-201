@@ -100,37 +100,78 @@ var Pipka:User=User.makeUser("BOl Shoi")
     }
     @Test
     fun trimtrim(){
-        var a:String
-        a = "123"
-        print(a.truncate(3))
+        var numberString:String = "24"
+        var lastNumber: Int = numberString.last().toString().toInt()
+        print(lastNumber)
 
     }
 @Test
-    fun stripHtmlTest() {
-        /* skillBranch tests */
-        assertEquals("Образовательное IT-сообщество Skill Branch",
-            "<p class=\"title\">Образовательное IT-сообщество Skill Branch</p>".stripHtml())
-        assertEquals("Образовательное IT-сообщество Skill Branch",
-            "<p>Образовательное       IT-сообщество Skill Branch</p>".stripHtml())
 
-        /* additional tests */
-        assertEquals("single", "&amp;&lt;&gt;single&#39;&quot;".stripHtml())
-        assertEquals("", "&amp;&lt;&gt;&#39;&quot;".stripHtml())
-        assertEquals(" ", "&amp;&lt;&gt;    &#39;&quot;".stripHtml())
-        assertEquals("1978", "<path fill=\"Color\" d=\"M11.63 10z\"></svg><span>1978</span>".stripHtml())
-        assertEquals("", "&gt;<head>&#39;&quot;</head>".stripHtml())
-        assertEquals(" ", "&gt;<head> &quot; </head>".stripHtml())
-        assertEquals("&игра; amp lt &gt 39; meters ()quot;", "&игра; amp lt &gt 39; meters ()quot;".stripHtml())
-        assertEquals(" one two ", "  one   two ".stripHtml())
-        assertEquals("null", "null".stripHtml())
-        val longHtml = """
-            <TD valign="top" style="padding-bottom:15px;"> <b>line1<b> </TD>
-            <TD valign="top"> <span class="HeadTitleNews"> line2</span>
-            <img src='http://2011WaterpoloF.jpg' >
-            <div style="margin: 0in 0in 0pt">line3</div>
-        """.trimIndent()
-        assertEquals(" line1 \n line2\n\nline3", longHtml.stripHtml())
-    }
+fun testPlu(){
+    var lastNumber:Int = "24".last().toString().toInt()
+    println(lastNumber)
+    println(TimeUnits.SECOND.plural(0))
+    println(TimeUnits.SECOND.plural(1))
+    println(TimeUnits.SECOND.plural(2))
+    println(TimeUnits.SECOND.plural(7))
+    println(TimeUnits.SECOND.plural(14))
+    println(TimeUnits.SECOND.plural(24))
+    println(TimeUnits.SECOND.plural(102))
+    println(TimeUnits.SECOND.plural(112))
+    println(TimeUnits.SECOND.plural(122))
+    println(TimeUnits.SECOND.plural(311))
+
+
+}
+
+    @Test
+fun test_plural() {
+    assertEquals("0 секунд", TimeUnits.SECOND.plural(0))
+    assertEquals("1 секунду", TimeUnits.SECOND.plural(1))
+    assertEquals("2 секунды", TimeUnits.SECOND.plural(2))
+    assertEquals("7 секунд", TimeUnits.SECOND.plural(7))
+    assertEquals("14 секунд", TimeUnits.SECOND.plural(14))
+    assertEquals("24 секунды", TimeUnits.SECOND.plural(24))
+    assertEquals("102 секунды", TimeUnits.SECOND.plural(102))
+    assertEquals("112 секунд", TimeUnits.SECOND.plural(112))
+    assertEquals("122 секунды", TimeUnits.SECOND.plural(122))
+    assertEquals("311 секунд", TimeUnits.SECOND.plural(311))
+
+    assertEquals("0 минут", TimeUnits.MINUTE.plural(0))
+    assertEquals("1 минуту", TimeUnits.MINUTE.plural(1))
+    assertEquals("2 минуты", TimeUnits.MINUTE.plural(2))
+    assertEquals("7 минут", TimeUnits.MINUTE.plural(7))
+    assertEquals("14 минут", TimeUnits.MINUTE.plural(14))
+    assertEquals("24 минуты", TimeUnits.MINUTE.plural(24))
+    assertEquals("102 минуты", TimeUnits.MINUTE.plural(102))
+    assertEquals("112 минут", TimeUnits.MINUTE.plural(112))
+    assertEquals("122 минуты", TimeUnits.MINUTE.plural(122))
+    assertEquals("311 минут", TimeUnits.MINUTE.plural(311))
+
+    assertEquals("0 часов", TimeUnits.HOUR.plural(0))
+    assertEquals("1 час", TimeUnits.HOUR.plural(1))
+    assertEquals("2 часа", TimeUnits.HOUR.plural(2))
+    assertEquals("7 часов", TimeUnits.HOUR.plural(7))
+    assertEquals("14 часов", TimeUnits.HOUR.plural(14))
+    assertEquals("24 часа", TimeUnits.HOUR.plural(24))
+    assertEquals("102 часа", TimeUnits.HOUR.plural(102))
+    assertEquals("112 часов", TimeUnits.HOUR.plural(112))
+    assertEquals("122 часа", TimeUnits.HOUR.plural(122))
+    assertEquals("311 часов", TimeUnits.HOUR.plural(311))
+
+    assertEquals("0 дней", TimeUnits.DAY.plural(0))
+    assertEquals("1 день", TimeUnits.DAY.plural(1))
+    assertEquals("2 дня", TimeUnits.DAY.plural(2))
+    assertEquals("7 дней", TimeUnits.DAY.plural(7))
+    assertEquals("14 дней", TimeUnits.DAY.plural(14))
+    assertEquals("24 дня", TimeUnits.DAY.plural(24))
+    assertEquals("102 дня", TimeUnits.DAY.plural(102))
+    assertEquals("112 дней", TimeUnits.DAY.plural(112))
+    assertEquals("122 дня", TimeUnits.DAY.plural(122))
+    assertEquals("311 дней", TimeUnits.DAY.plural(311))
+    assertEquals("1234 дня", TimeUnits.DAY.plural(1234))
+}
+
 }
 
 

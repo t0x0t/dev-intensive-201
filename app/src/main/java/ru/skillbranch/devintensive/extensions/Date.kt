@@ -250,9 +250,55 @@ if (diff in -96199999..-4560000 || diff in 4560000..96199999 ){
     }
 }
 
-enum class TimeUnits {
-    SECOND,
-    MINUTE,
-    HOUR,
-    DAY
-}
+    enum class TimeUnits {
+        SECOND,
+        MINUTE,
+        HOUR,
+        DAY;
+
+        fun plural(number: Int): String {
+            var name: Array<String>
+            var nameFin: String
+
+            when (this)
+            {
+                SECOND -> name = arrayOf("секунду", "секунды", "секунд")
+                MINUTE -> name = arrayOf("минуту", "минуты", "минут")
+                HOUR -> name = arrayOf("час", "часа", "часов")
+                DAY -> name = arrayOf("день", "дня", "дней")
+            }
+
+            if (number in 0..20)
+            {
+                when (number) {
+                    1 -> nameFin = name[0]
+                    in 2..4 -> nameFin = name[1]
+                    else -> nameFin = name[2]
+                }
+                return number.toString() + " " + nameFin
+            }
+
+            var numberString: String = number.toString()
+            var last2digit_ = numberString.drop(numberString.length - 2)
+
+            if (last2digit_.toInt() in 0..20)
+            {
+                when (last2digit_.toInt()) {
+                    1 -> nameFin = name[0]
+                    in 2..4 -> nameFin = name[1]
+                    else -> nameFin = name[2]
+                }
+                return number.toString() + " " + nameFin
+            }
+            var last1Digit = last2digit_.drop(1).toInt()
+
+            when (last1Digit) {
+                1 -> nameFin = name[0]
+                in 2..4 -> nameFin = name[1]
+                else -> nameFin = name[2]
+            }
+
+            return number.toString() + " " + nameFin
+        }
+    }
+

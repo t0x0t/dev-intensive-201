@@ -42,7 +42,7 @@ if (diff in -75000..75000){
     }
 }
 
-    if (diff in -2759000..2759000){
+    if (diff in -2759000..2759000){//-45,9..45,9 минут
         var intDiffMin:Int = (diff.toInt())/1000/60
         if (intDiffMin>=-20 || intDiffMin<=20)
         {
@@ -71,16 +71,16 @@ if (diff in -75000..75000){
 
     }
 
-if (diff in -4559000..4559000){
+if (diff in -4559000..4559000){//-75,9..75,9 минут
         if(diff>0){return "через час"}
         else{return "час назад"}
     }
-
+//-26,9..26,9 часы
 if (diff in -96199999..-4560000 || diff in 4560000..96199999 ){
         var toHours:Int = ((diff/3600).toInt())/1000
         when (toHours){
-            in -26..-22 -> return "день назад"
-            in -23..-22 -> name = "часа"
+            in -26..-23 -> return "день назад"
+            -22 -> name = "часа"
             -21 -> name = "час"
             in -20..-5 -> name = "часов"
             in -4..-2 -> name = "часа"
@@ -88,17 +88,161 @@ if (diff in -96199999..-4560000 || diff in 4560000..96199999 ){
             in 2..4 -> name = "часа"
             in 5..20 -> name = "часов"
             21 -> name ="час"
-            in 22..23 -> name ="часа"
-            in 22..26 -> return "через день"
+            22 -> name ="часа"
+            in 23..26 -> return "через день"
                     }
         if(toHours>0){return "через " + toHours.toString() + " " + name}
         else {return toHours.toString().drop(1) + " " + name + " назад"}
     }
     //97 200 000 - 27часов   1299600000 == 361 день (!!!вычесть тысячную секунды!!!)
-if (diff in -1299599000..-97200000||diff in 97200000..1299599000){
-    var toDays:Int = (((diff/3600).toInt())/1000)/24
-    return diff.toString() + " разница - таймЮнитс " + toDays.toString()
-}
+    var numLen:Int
+    var toDays = (((diff/3600)/1000)/24).toInt()
+    var lastTwoOfThree:Int
+    var lastofTwo:Int
+    var moreThenZero: Boolean = true
+
+
+    if (diff <= -97200000||diff >= 97200000)
+ {
+
+        if (toDays<0)
+        {
+            //Вычисление количества знаков в числе дней
+        numLen = toDays.toString().drop(1).length
+        toDays = toDays.toString().drop(1).toInt()
+        moreThenZero = false
+        }
+    else
+        {
+        numLen = toDays.toString().length
+        }
+     if (toDays>360)
+     {
+        if(moreThenZero)
+        {
+            return "более чем через год"
+        }
+         else
+        {
+            return "более года назад"
+        }
+     }
+
+     if (toDays.toString().drop(1)=="00")
+     {
+         name = "дней"
+         if (moreThenZero)
+         {
+             return "через " + toDays.toString() + " " + name
+         }
+         else
+         {
+             return toDays.toString() + " " + name + " назад"
+         }
+     }
+
+     if (numLen == 1)
+     {
+        //return diff.toString() + " разница - таймЮнитс " + toDays.toString() + " " + ((toDays)).toString().length.toString()
+        when (toDays)
+        {
+            1 -> name = "день"
+            in 2..4 -> name = "дня"
+            else -> name = "дней"
+        }
+                if (moreThenZero)
+                {
+                    return "через " + toDays.toString() + " " + name
+                }
+                else
+                {
+                    return toDays.toString() + " " + name + " назад"
+                }
+     }
+                if (numLen == 2)
+                {
+                    lastofTwo = toDays.toString().drop(1).toInt()
+                    lastTwoOfThree = toDays
+
+                    if (lastTwoOfThree in 1..20) {
+
+                        when (lastTwoOfThree)
+                                    {
+                                        1 -> name = "день"
+                                        in 2..4 -> name = "дня"
+                                        in 5..20 -> name = "дней"
+                                    }
+
+                        if (moreThenZero)
+                        {
+                            return "через " + toDays.toString() + " " + name
+                        }
+                        else
+                        {
+                            return toDays.toString() + " " + name + " назад"
+                        }
+                    }
+                                        when (lastofTwo)
+                                        {
+                                            1 -> name = "день"
+                                            in 2..4 -> name = "дня"
+                                            else -> name ="дней"
+                                        }
+                    if (moreThenZero)
+                    {
+                        return "через " + toDays.toString() + " " + name
+                    }
+                    else
+                    {
+                        return toDays.toString() + " " + name + " назад"
+                    }
+                }
+
+            if (numLen==3)
+              {
+
+                lastTwoOfThree = toDays.toString().drop(1).toInt()
+
+
+                    if(lastTwoOfThree in 0..20) {
+
+                        when (lastTwoOfThree) //ВОТ ЭТОТ ОТМЕЧЕННЫЙ БЛОК
+                        {
+                            0 -> name = "дней"
+                            1 -> name = "день"
+                            in 2..4 -> name = "дня"
+                            in 5..20 -> name = "дней"
+                        }
+                        if (moreThenZero)
+                        {
+                            return "через " + toDays.toString() + " " + name
+                        }
+                        else
+                        {
+                            return toDays.toString() + " " + name + " назад"
+                        }
+                    }
+                        lastofTwo = lastTwoOfThree.toString().drop(1).toInt()
+
+                                when (lastofTwo)
+                            {
+                                1 -> name = "день"
+                                in 2..4 -> name = "дня"
+                                else -> name ="дней"
+                                }
+                  if (moreThenZero)
+                  {
+                      return "через " + toDays.toString() + " " + name
+                  }
+                  else
+                  {
+                      return toDays.toString() + " " + name + " назад"
+                  }
+
+              }
+
+    return toDays.toString() + " " + name
+ }
 
     else
     {

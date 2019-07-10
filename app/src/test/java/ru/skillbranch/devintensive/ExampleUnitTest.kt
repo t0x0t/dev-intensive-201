@@ -103,13 +103,22 @@ var Pipka:User=User.makeUser("BOl Shoi")
         val currDate = Date()
 
         //var a: Long = (Date().time - Date().add(100, TimeUnits.MINUTE).time) / 1000
-        var n: Int = -30
-        while (n <= 300) {
+        var n: Int = -370
+        while (n <= 367) {
             messageDate.time = currDate.time
             n++
-            println(messageDate.add(n, TimeUnits.HOUR).humanizeDiff(currDate))
+            println(messageDate.add(n, TimeUnits.DAY).humanizeDiff(currDate))
         }
     }
+
+    @Test
+    fun ttyyy() {
+        val messageDate = Date()
+        val currDate = Date()
+    messageDate.time = currDate.time
+    assertEquals("1 день назад", messageDate.add(-27, TimeUnits.HOUR).humanizeDiff(currDate))
+}
+
 
     @Test
     fun humanizeDiffTest() {
@@ -175,7 +184,7 @@ var Pipka:User=User.makeUser("BOl Shoi")
         messageDate.time = currDate.time
         assertEquals("через 22 часа", messageDate.add(22, TimeUnits.HOUR).humanizeDiff(currDate))
         messageDate.time = currDate.time
-        /*
+
         assertEquals("день назад", messageDate.add(-23, TimeUnits.HOUR).humanizeDiff(currDate))
         messageDate.time = currDate.time
         assertEquals("через день", messageDate.add(23, TimeUnits.HOUR).humanizeDiff(currDate))
@@ -206,7 +215,7 @@ var Pipka:User=User.makeUser("BOl Shoi")
         messageDate.time = currDate.time
         assertEquals("более года назад", messageDate.add(-12345, TimeUnits.DAY).humanizeDiff(currDate))
         messageDate.time = currDate.time
-        assertEquals("более чем через год", messageDate.add(12345, TimeUnits.DAY).humanizeDiff(currDate))*/
+        assertEquals("более чем через год", messageDate.add(12345, TimeUnits.DAY).humanizeDiff(currDate))
     }
 }
 

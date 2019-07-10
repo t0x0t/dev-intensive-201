@@ -85,18 +85,6 @@ var Pipka:User=User.makeUser("BOl Shoi")
         print(imgmsg.formatMessage())
     }
 
-
-    /*println(Utils.parseFullName("john doe"))
-    println(Utils.parseFullName(" doe"))
-    println(Utils.parseFullName("john "))
-    println(Utils.parseFullName("john"))
-    println(Utils.parseFullName(null))
-    println(Utils.parseFullName(""))
-    println(Utils.parseFullName("   "))
-    println(Utils.toInitials("John", null))
-    println(Utils.toInitials(null, null)) //null
-    println(Utils.toInitials(" ", ""))
-    println(Utils.toInitials("", "test"))*/
     @Test
     fun formatTest() {
         val messageDate = Date()
@@ -110,113 +98,37 @@ var Pipka:User=User.makeUser("BOl Shoi")
             println(messageDate.add(n, TimeUnits.DAY).humanizeDiff(currDate))
         }
     }
-
     @Test
-    fun ttyyy() {
-        val messageDate = Date()
-        val currDate = Date()
-    messageDate.time = currDate.time
-    assertEquals("1 день назад", messageDate.add(-27, TimeUnits.HOUR).humanizeDiff(currDate))
-}
+    fun trimtrim(){
+        var a:String
+        a = "123"
+        print(a.truncate(3))
 
-
-    @Test
-    fun humanizeDiffTest() {
-        val messageDate = Date()
-        val currDate = Date()
-
-        assertEquals("только что", messageDate.add(-1, TimeUnits.SECOND).humanizeDiff(currDate))
-        messageDate.time = currDate.time
-        assertEquals("только что", messageDate.add(1, TimeUnits.SECOND).humanizeDiff(currDate))
-        messageDate.time = currDate.time
-        assertEquals("несколько секунд назад", messageDate.add(-2, TimeUnits.SECOND).humanizeDiff(currDate))
-        messageDate.time = currDate.time
-        assertEquals("через несколько секунд", messageDate.add(2, TimeUnits.SECOND).humanizeDiff(currDate))
-        messageDate.time = currDate.time
-        assertEquals("несколько секунд назад", messageDate.add(-45, TimeUnits.SECOND).humanizeDiff(currDate))
-        messageDate.time = currDate.time
-        assertEquals("через несколько секунд", messageDate.add(45, TimeUnits.SECOND).humanizeDiff(currDate))
-        messageDate.time = currDate.time
-        assertEquals("минуту назад", messageDate.add(-46, TimeUnits.SECOND).humanizeDiff(currDate))
-        messageDate.time = currDate.time
-        assertEquals("через минуту", messageDate.add(46, TimeUnits.SECOND).humanizeDiff(currDate))
-        messageDate.time = currDate.time
-        assertEquals("минуту назад", messageDate.add(-75, TimeUnits.SECOND).humanizeDiff(currDate))
-        messageDate.time = currDate.time
-        assertEquals("через минуту", messageDate.add(75, TimeUnits.SECOND).humanizeDiff(currDate))
-
-        messageDate.time = currDate.time
-        assertEquals("через 1 минуту", messageDate.add(76, TimeUnits.SECOND).humanizeDiff(currDate))
-        messageDate.time = currDate.time
-        assertEquals("через 2 минуты", messageDate.add(2, TimeUnits.MINUTE).humanizeDiff(currDate))
-        messageDate.time = currDate.time
-        assertEquals("3 минуты назад", messageDate.add(-3, TimeUnits.MINUTE).humanizeDiff(currDate))
-        messageDate.time = currDate.time
-        assertEquals("45 минут назад", messageDate.add(-45, TimeUnits.MINUTE).humanizeDiff(currDate))
-        messageDate.time = currDate.time
-        assertEquals("через 45 минут", messageDate.add(45, TimeUnits.MINUTE).humanizeDiff(currDate))
-        messageDate.time = currDate.time
-        assertEquals("час назад", messageDate.add(-46, TimeUnits.MINUTE).humanizeDiff(currDate))
-        messageDate.time = currDate.time
-        assertEquals("через час", messageDate.add(46, TimeUnits.MINUTE).humanizeDiff(currDate))
-        messageDate.time = currDate.time
-        assertEquals("час назад", messageDate.add(-75, TimeUnits.MINUTE).humanizeDiff(currDate))
-        messageDate.time = currDate.time
-        assertEquals("через час", messageDate.add(75, TimeUnits.MINUTE).humanizeDiff(currDate))
-        messageDate.time = currDate.time
-        assertEquals("1 час назад", messageDate.add(-76, TimeUnits.MINUTE).humanizeDiff(currDate))
-        messageDate.time = currDate.time
-        assertEquals("через 1 час", messageDate.add(76, TimeUnits.MINUTE).humanizeDiff(currDate))
-        messageDate.time = currDate.time
-        assertEquals("4 часа назад", messageDate.add(-4, TimeUnits.HOUR).humanizeDiff(currDate))
-        messageDate.time = currDate.time
-        assertEquals("через 4 часа", messageDate.add(4, TimeUnits.HOUR).humanizeDiff(currDate))
-        messageDate.time = currDate.time
-        assertEquals("6 часов назад", messageDate.add(-6, TimeUnits.HOUR).humanizeDiff(currDate))
-        messageDate.time = currDate.time
-        assertEquals("через 6 часов", messageDate.add(6, TimeUnits.HOUR).humanizeDiff(currDate))
-        messageDate.time = currDate.time
-        assertEquals("11 часов назад", messageDate.add(-11, TimeUnits.HOUR).humanizeDiff(currDate))
-        messageDate.time = currDate.time
-        assertEquals("через 11 часов", messageDate.add(11, TimeUnits.HOUR).humanizeDiff(currDate))
-        messageDate.time = currDate.time
-        assertEquals("22 часа назад", messageDate.add(-22, TimeUnits.HOUR).humanizeDiff(currDate))
-        messageDate.time = currDate.time
-        assertEquals("через 22 часа", messageDate.add(22, TimeUnits.HOUR).humanizeDiff(currDate))
-        messageDate.time = currDate.time
-
-        assertEquals("день назад", messageDate.add(-23, TimeUnits.HOUR).humanizeDiff(currDate))
-        messageDate.time = currDate.time
-        assertEquals("через день", messageDate.add(23, TimeUnits.HOUR).humanizeDiff(currDate))
-        messageDate.time = currDate.time
-        assertEquals("день назад", messageDate.add(-26, TimeUnits.HOUR).humanizeDiff(currDate))
-        messageDate.time = currDate.time
-        assertEquals("через день", messageDate.add(26, TimeUnits.HOUR).humanizeDiff(currDate))
-        messageDate.time = currDate.time
-        assertEquals("1 день назад", messageDate.add(-27, TimeUnits.HOUR).humanizeDiff(currDate))
-        messageDate.time = currDate.time
-        assertEquals("через 1 день", messageDate.add(27, TimeUnits.HOUR).humanizeDiff(currDate))
-        messageDate.time = currDate.time
-        assertEquals("12 дней назад", messageDate.add(-12, TimeUnits.DAY).humanizeDiff(currDate))
-        messageDate.time = currDate.time
-        assertEquals("через 12 дней", messageDate.add(12, TimeUnits.DAY).humanizeDiff(currDate))
-        messageDate.time = currDate.time
-        assertEquals("112 дней назад", messageDate.add(-112, TimeUnits.DAY).humanizeDiff(currDate))
-        messageDate.time = currDate.time
-        assertEquals("через 112 дней", messageDate.add(112, TimeUnits.DAY).humanizeDiff(currDate))
-        messageDate.time = currDate.time
-        assertEquals("360 дней назад", messageDate.add(-360, TimeUnits.DAY).humanizeDiff(currDate))
-        messageDate.time = currDate.time
-        assertEquals("через 360 дней", messageDate.add(360, TimeUnits.DAY).humanizeDiff(currDate))
-        messageDate.time = currDate.time
-        assertEquals("более года назад", messageDate.add(-361, TimeUnits.DAY).humanizeDiff(currDate))
-        messageDate.time = currDate.time
-        assertEquals("более чем через год", messageDate.add(361, TimeUnits.DAY).humanizeDiff(currDate))
-        messageDate.time = currDate.time
-        assertEquals("более года назад", messageDate.add(-12345, TimeUnits.DAY).humanizeDiff(currDate))
-        messageDate.time = currDate.time
-        assertEquals("более чем через год", messageDate.add(12345, TimeUnits.DAY).humanizeDiff(currDate))
     }
+
+    @Test
+    fun truncateTest() {
+        /* skillBranch tests */
+        assertEquals("Bender Bending R...", "Bender Bending Rodriguez — дословно «Сгибальщик Сгибающий Родригес»".truncate())
+        assertEquals("Bender Bending...", "Bender Bending Rodriguez — дословно «Сгибальщик Сгибающий Родригес»".truncate(15))
+        assertEquals("A", "A     ".truncate(3))
+
+
+        assertEquals("too lo...", "   too long line with lots of spaces before".truncate(6))
+        assertEquals("too short", "too short".truncate(20))
+        assertEquals("12345", "12345".truncate(5))
+        assertEquals("1234...", "12345".truncate(4))
+        assertEquals("12345", "12345  ".truncate(5))
+        assertEquals("tab", "tab    ".truncate(5))
+        assertEquals("dots......", "dots... a lot".truncate(7))
+        assertEquals("abc", "abc    ".truncate(15))
+        assertEquals("123456...", "123456789".truncate(6))
+        assertEquals("123456789", "123456789".truncate(9))
+        assertEquals("Bender Bending R...", "Bender Bending Rodriguez — дословно «Сгибальщик Сгибающий Родригес»".truncate())
+        assertEquals("Bender Bending...", "Bender Bending Rodriguez — дословно «Сгибальщик Сгибающий Родригес»".truncate(15))
+        assertEquals("1", "1     ".truncate(3))
+    }
+
 }
 
 

@@ -19,15 +19,49 @@ class Bender(
             Question.IDLE -> Question.IDLE.question
         }
 
+    fun validate(ans:String, que:Question)
+    {
+        if (que==Question.NAME && ans[0].isLowerCase()){
+
+        }
+    }
+
 
     fun listenAnswer(answer:String): Pair<String, Triple<Int, Int, Int>>
     {
+        //Блок кода ниже - ВАЛИДАЦИЯ
+        if ( question == Question.NAME && (answer == "" || answer[0].isLowerCase() || !answer[0].isLetter()))
+        {
+            return "Имя должно начинаться с заглавной буквы\n${question.question}" to status.color
+        }
+        if ( question == Question.PROFESSION && (answer == "" || answer[0].isUpperCase() || !answer[0].isLetter()))
+        {
+            return "Профессия должна начинаться со строчной буквы\n${question.question}" to status.color
+        }
+        if(question==Question.MATERIAL && answer.contains(regex = Regex(".*[0-9].*")))
+        {
+            return "Материал не должен содержать цифр\n${question.question}" to status.color
+        }
+        if(question == Question.BDAY && !answer.matches(Regex("[0-9]+")))
+        {
+            return "Год моего рождения должен содержать только цифры\n${question.question}" to status.color
+        }
+        if (question == Question.SERIAL && !answer.matches(Regex("[\\d]{7}")))
+        {
+            return "Серийный номер содержит только цифры, и их 7\n${question.question}" to status.color
+        }
+        if (question == Question.IDLE && (answer =="" || answer.contains(regex = Regex(".*"))))
+        {
+            return "На этом все, вопросов больше нет" to status.color
+        }
+            //блок кода выше - ВАЛИДАЦИЯ
+
         if (question == Question.IDLE)
         {
             return "Отлично - ты справился\nНа этом все, вопросов больше нет" to status.color
         }
 
-        if (!question.answers.contains(answer))
+        if (!question.answers.contains(answer.toLowerCase()))
         {
             n = n!! +1
         }
@@ -40,7 +74,7 @@ class Bender(
             return "Это неправильный ответ. Давай все по новой\n${question.question}" to status.color
         }
 
-        if (question.answers.contains(answer))
+        if (question.answers.contains(answer.toLowerCase()))
         {
 
                 question = question.nextQuestion()
@@ -81,7 +115,7 @@ class Bender(
 
     enum class Question(val question:String, val answers: List<String>)
     {
-        NAME("Как меня зовут?", listOf("Бендер", "bender"))
+        NAME("Как меня зовут?", listOf("бендер", "bender"))
         {
             override fun nextQuestion(): Question = PROFESSION
         },

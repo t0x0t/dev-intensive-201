@@ -1,11 +1,13 @@
 package ru.skillbranch.devintensive
 
-import android.support.*
+
 import org.junit.Assert.*
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import ru.skillbranch.devintensive.models.Bender
+import android.support.*
+import org.junit.Assert.*
 
 import org.junit.Assert.*
 import ru.skillbranch.devintensive.extensions.*
@@ -176,6 +178,7 @@ fun test_plural() {
     assertEquals("311 дней", TimeUnits.DAY.plural(311))
     assertEquals("1234 дня", TimeUnits.DAY.plural(1234))
 }
+
 }
 
 

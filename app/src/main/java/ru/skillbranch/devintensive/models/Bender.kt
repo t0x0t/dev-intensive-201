@@ -22,6 +22,10 @@ class Bender(
 
     fun listenAnswer(answer:String): Pair<String, Triple<Int, Int, Int>>
     {
+        if (question == Question.IDLE)
+        {
+            return "Отлично - ты справился\nНа этом все, вопросов больше нет" to status.color
+        }
 
         if (!question.answers.contains(answer))
         {
@@ -41,14 +45,11 @@ class Bender(
 
                 question = question.nextQuestion()
 
-            if (question == Question.IDLE)
-            {
-                return "Отлично - ты справился\nНа этом все, вопросов больше нет" to status.color
-            }
-            else
-            {
+
+
+
                 return "Отлично - ты справился\n${question.question}" to status.color
-            }
+
 
         }
         else

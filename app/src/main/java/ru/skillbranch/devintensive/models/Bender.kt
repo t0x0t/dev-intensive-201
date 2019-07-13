@@ -1,5 +1,7 @@
 package ru.skillbranch.devintensive.models
 
+import android.app.Activity
+
 class Bender(
     var status:Status = Status.NORMAL,
     var question: Question = Question.NAME,

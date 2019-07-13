@@ -34,11 +34,15 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         textTXT = tv_text
         messageEt = et_message
         sendBtn = iv_send
-
         val status = savedInstanceState?.getString("STATUS") ?: Bender.Status.NORMAL.name
         val question = savedInstanceState?.getString("QUESTION") ?: Bender.Question.NAME.name
-        benderObj = Bender(Bender.Status.valueOf(status), Bender.Question.valueOf(question))
-        Log.d("M_MainActivity", "onCreate $status $question")
+
+        //                         /
+        val nn = savedInstanceState?.getInt("N") ?: Bender().n
+        //                          /
+
+        benderObj = Bender(Bender.Status.valueOf(status), Bender.Question.valueOf(question), nn)
+        Log.d("M_MainActivity", "onCreate $status $question $nn")
         val (r, g, b) = benderObj.status.color
         benderImage.setColorFilter(Color.rgb(r, g, b), PorterDuff.Mode.MULTIPLY)
         textTXT.text = benderObj.askQuestion()
@@ -81,6 +85,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
     override fun onSaveInstanceState(outState: Bundle?) {
         super.onSaveInstanceState(outState)
+        benderObj.n?.let { outState?.putInt("N", it) }
         outState?.putString("STATUS", benderObj.status.name)
         outState?.putString("QUESTION", benderObj.question.name)
         Log.d("M_MainActivity", "onSaveInstanceState ${benderObj.status.name} ${benderObj.question.name}")

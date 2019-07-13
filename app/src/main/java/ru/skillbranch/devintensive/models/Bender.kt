@@ -3,7 +3,7 @@ package ru.skillbranch.devintensive.models
 class Bender(
     var status:Status = Status.NORMAL,
     var question: Question = Question.NAME,
-    var n: Int = 0
+    var n: Int? = 0
     //var l: Int = 0
     )
 {
@@ -29,10 +29,10 @@ class Bender(
 
         if (!question.answers.contains(answer))
         {
-            n++
+            n = n!! +1
         }
 
-        if (n>3)
+        if (n!! >3)
         {
             question = Question.NAME
             status = Status.NORMAL

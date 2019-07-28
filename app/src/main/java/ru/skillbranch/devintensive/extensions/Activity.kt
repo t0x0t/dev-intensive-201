@@ -5,8 +5,6 @@ import android.graphics.Rect
 import android.util.Log
 import android.view.View
 import android.view.inputmethod.InputMethodManager
-import kotlinx.android.synthetic.main.activity_main.*
-import ru.skillbranch.devintensive.MainActivity
 
 
 fun Activity.hideKeyboard(){
@@ -19,11 +17,26 @@ fun Activity.hideKeyboard(){
 
 fun Activity.isKeyboardOpen():Boolean
 {
+    /* ТАК ПОНЯТНЕЕ
+    val viewFrame = findViewById<View>(android.R.id.content) либо findViewById(android.R.id.content) as View
+        val rect = Rect()
+    viewFrame.getWindowVisibleDisplayFrame(rect)*/
+
     var visibleBounds = Rect()
-    this.findViewById<View>(android.R.id.content).getWindowVisibleDisplayFrame(visibleBounds)
+    var test = Rect()
     Log.d("M_MainActivity", "$visibleBounds")
+    this.findViewById<View>(android.R.id.content).getWindowVisibleDisplayFrame(visibleBounds)
+    Log.d("M_MainActivity", "visDispFram $visibleBounds")
+
+
+
+    var VB = Rect()
+    this.findViewById<View>(android.R.id.content).getGlobalVisibleRect(VB)
+    Log.d("M_MainActivity", "globVisRect $visibleBounds")
+
+    Log.d("M_MainActivity", "android.R.id.content height ${this.findViewById<View>(android.R.id.content).height}")
+
     val heightDiff = this.findViewById<View>(android.R.id.content).height - visibleBounds.height ()
-    Log.d("M_MainActivity", "${this.findViewById<View>(android.R.id.content)}")
     val isOpen = heightDiff>0
         Log.d("M_MainActivity", "SoftKB_Open = $isOpen")
     return isOpen

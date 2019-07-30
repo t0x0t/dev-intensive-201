@@ -39,7 +39,11 @@ class ProfileActivity : AppCompatActivity() {
         setContentView(R.layout.activity_profile)
         initViews(savedInstanceState)
         initViewModel()
-        Log.d("M_ProfileActivity", "onCreate")
+        //test
+        //var test = findViewById<View>(R.id.tv_nick_name) as TextView
+        //test.setText("123")
+        //test
+        Log.d("M_ProfileActivity", "$viewFields")
 
     }
 
@@ -64,11 +68,15 @@ class ProfileActivity : AppCompatActivity() {
     }
 
     private fun updateUI(profile: Profile) {
-        profile.toMap().also {
+       // profile.toMap()
             for ((k, v) in viewFields) {
-                v.text = it[k].toString()
+                v.text = profile.toMap()[k].toString()
             }
-        }
+        //реализация
+           // var test = viewFields["nickname"]
+            //test?.setText("${viewFields["firstName"]?.text} ${viewFields["lastName"]?.text}")
+        //которую нужно сделать в дата классе
+
     }
 
     private fun initViews(savedInstanceState: Bundle?) {

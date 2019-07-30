@@ -26,8 +26,14 @@ import java.util.*
  */
 class ExampleUnitTest {
     @Test
-    fun addition_isCorrect() {
-        assertEquals(4, 2 + 2)
+    fun wer12345dfg() {
+        var x = 100
+        var y = 25
+        x = y.also { y = x }
+        println("$x x")
+        println("$y y")
+
+
     }
 
     /*@Test

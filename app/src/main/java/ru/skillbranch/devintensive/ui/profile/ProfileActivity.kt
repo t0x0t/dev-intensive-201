@@ -12,6 +12,8 @@ import android.view.inputmethod.EditorInfo
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.annotation.ColorRes
+import androidx.annotation.Dimension
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
@@ -42,6 +44,7 @@ class ProfileActivity : AppCompatActivity() {
         //a1.setBorderWidth(50)
         initViews(savedInstanceState)
         initViewModel()
+
 
         Log.d("M_ProfileActivity", "$viewFields")
         Log.d("M_ProfileActivity", "")
@@ -96,10 +99,21 @@ class ProfileActivity : AppCompatActivity() {
         isEditMode = savedInstanceState?.getBoolean(IS_EDIT_MODE, false) ?: false
         showCurrentMode(isEditMode)
 
+        var a1 = findViewById<CircleImageView>(R.id.iv_avatar)
+        var bb = 1
+
         btn_edit.setOnClickListener {
             if(isEditMode) saveProfileInfo()
             isEditMode = !isEditMode
             showCurrentMode(isEditMode)
+
+
+            a1.setBorderWidth(bb)
+            bb++
+            Log.d("M_ProfileActivity", "bordWidd: $a1")
+            var bb1 = a1.getBorderWidth()
+            Log.d("M_ProfileActivity", "bordWidd1: $bb1")
+            a1.setBorderColor(R.color.color_gray_dark)
 
         }
 

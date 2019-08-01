@@ -12,11 +12,14 @@ import android.graphics.drawable.Drawable
 import android.util.Log
 import androidx.annotation.ColorInt
 import androidx.annotation.ColorRes
+import androidx.annotation.NonNull
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 //import androidx.core.content.res.ResourcesCompat.getColor
 //import androidx.core.content.res.ResourcesCompat.getColorStateList
 import androidx.core.graphics.drawable.toBitmap
+import kotlinx.android.synthetic.main.activity_profile.view.*
+
 //import androidx.core.graphics.toColor
 //import ru.skillbranch.devintensive.App
 
@@ -64,7 +67,7 @@ class CircleImageView @JvmOverloads constructor(context: Context, attrs: Attribu
         path.addCircle((getWidth() / 2).toFloat(), (getHeight() / 2).toFloat(), (getHeight().toFloat() / 2), Path.Direction.CW)
         canvas.clipPath(path)
 
-        canvas.drawBitmap(bit, 0f, 0f, a)
+        canvas.drawBitmap(bit!!, 0f, 0f, a)
         Log.d("M_ProfileActivity", "h - ${(getWidth().toFloat())/2} ${getHeight().toFloat()/2}")
         canvas.drawCircle((getWidth()).toFloat()/2, (getHeight()).toFloat()/2, ((getHeight()).toFloat()/2) - (b / 2), a)
 
@@ -75,7 +78,7 @@ class CircleImageView @JvmOverloads constructor(context: Context, attrs: Attribu
     fun getBorderWidth(): Int = dpInPx2DpInDp(CV_BORDERWIDTH)
 
     fun setBorderWidth(@Dimension dp: Int) {
-        CV_BORDERWIDTH = dp
+        CV_BORDERWIDTH = toDP(dp)
         this.invalidate()
     }
 
@@ -87,10 +90,13 @@ class CircleImageView @JvmOverloads constructor(context: Context, attrs: Attribu
     }
 
     fun setBorderColor(@ColorRes colorId: Int) {
-        f = ResourcesCompat.getColor(resources, colorId, context.theme)
+        f = ContextCompat.getColor(context, colorId)
             //ContextCompat.getColor(context, colorId)
         invalidate()
     }
+         //   //
+     //
+//
 //TODO вынести в утилитные методы
     //то, что ниже
     fun toDP(px: Int): Int {
@@ -98,7 +104,7 @@ class CircleImageView @JvmOverloads constructor(context: Context, attrs: Attribu
     }
 
     fun dpInPx2DpInDp(dp: Int): Int {
-        return (dp / Resources.getSystem().displayMetrics.density.toInt())
+        return (dp / (Resources.getSystem().displayMetrics.density).toInt())
     }
 
 }

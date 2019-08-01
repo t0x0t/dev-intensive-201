@@ -13,6 +13,7 @@ import android.util.Log
 import androidx.annotation.ColorInt
 import androidx.annotation.ColorRes
 import androidx.core.content.ContextCompat
+import androidx.core.content.res.ResourcesCompat
 //import androidx.core.content.res.ResourcesCompat.getColor
 //import androidx.core.content.res.ResourcesCompat.getColorStateList
 import androidx.core.graphics.drawable.toBitmap
@@ -84,7 +85,7 @@ class CircleImageView @JvmOverloads constructor(context: Context, attrs: Attribu
     }
 
     fun setBorderColor(@ColorRes colorId: Int) {
-        f = resources.getColor(colorId, context.theme)
+        f = ResourcesCompat.getColor(resources, colorId, context.theme)
             //ContextCompat.getColor(context, colorId)
         invalidate()
     }

@@ -12,6 +12,7 @@ import android.graphics.drawable.Drawable
 import android.util.Log
 import androidx.annotation.ColorRes
 import androidx.core.content.ContextCompat
+import androidx.core.content.res.ResourcesCompat.getColor
 import androidx.core.content.res.ResourcesCompat.getColorStateList
 import androidx.core.graphics.drawable.toBitmap
 import androidx.core.graphics.toColor
@@ -30,8 +31,7 @@ class CircleImageView @JvmOverloads constructor(context: Context, attrs: Attribu
             Log.d("M_ProfileActivity", "$CV_BORDERWIDTH brd")
             val a = context.obtainStyledAttributes(attrs, R.styleable.CircleImageView)
             f = a.getColor(R.styleable.CircleImageView_cv_borderColor, f)
-            CV_BORDERWIDTH =
-                a.getDimension(R.styleable.CircleImageView_cv_borderWidth, CV_BORDERWIDTH.toFloat()).toInt()
+            CV_BORDERWIDTH = a.getDimension(R.styleable.CircleImageView_cv_borderWidth, CV_BORDERWIDTH.toFloat()).toInt()
             Log.d("M_ProfileActivity", "$CV_BORDERWIDTH brd")
 
             a.recycle()
@@ -78,7 +78,7 @@ class CircleImageView @JvmOverloads constructor(context: Context, attrs: Attribu
     }
 
     fun setBorderColor(@ColorRes colorId: Int) {
-        f = ContextCompat.getColor(context, colorId)
+        f = colorId
         this.invalidate()
     }
 //TODO вынести в утилитные методы

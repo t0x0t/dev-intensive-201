@@ -6,18 +6,18 @@ import android.util.AttributeSet
 import android.widget.ImageView
 import ru.skillbranch.devintensive.R
 import androidx.annotation.Dimension
-import kotlinx.android.synthetic.main.activity_profile.view.*
+//import kotlinx.android.synthetic.main.activity_profile.view.*
 import android.graphics.*
 import android.graphics.drawable.Drawable
 import android.util.Log
 import androidx.annotation.ColorInt
 import androidx.annotation.ColorRes
 import androidx.core.content.ContextCompat
-import androidx.core.content.res.ResourcesCompat.getColor
-import androidx.core.content.res.ResourcesCompat.getColorStateList
+//import androidx.core.content.res.ResourcesCompat.getColor
+//import androidx.core.content.res.ResourcesCompat.getColorStateList
 import androidx.core.graphics.drawable.toBitmap
-import androidx.core.graphics.toColor
-import ru.skillbranch.devintensive.App
+//import androidx.core.graphics.toColor
+//import ru.skillbranch.devintensive.App
 
 
 class CircleImageView @JvmOverloads constructor(context: Context, attrs: AttributeSet, defStyleAttr: Int = 0) :
@@ -57,6 +57,8 @@ class CircleImageView @JvmOverloads constructor(context: Context, attrs: Attribu
         var dra: Drawable? = ContextCompat.getDrawable(context, R.drawable.avatar_default)
         var bit = dra?.toBitmap(width, height) //width, height заменяют getWidth(), getHeight()
 
+
+
         var path = Path()
         path.addCircle((getWidth() / 2).toFloat(), (getHeight() / 2).toFloat(), (getHeight().toFloat() / 2), Path.Direction.CW)
         canvas.clipPath(path)
@@ -71,19 +73,20 @@ class CircleImageView @JvmOverloads constructor(context: Context, attrs: Attribu
 
     fun setBorderWidth(@Dimension dp: Int) {
         CV_BORDERWIDTH = dp
-        this.invalidate()
+        invalidate()
     }
 
     fun getBorderColor(): Int = f
 
     fun setBorderColor(hex: String) {
         f = Color.parseColor(hex)
-        this.invalidate()
+        invalidate()
     }
 
     fun setBorderColor(@ColorRes colorId: Int) {
-        f = ContextCompat.getColor(App.applicationContext(), colorId)
-        this.invalidate()
+        f = resources.getColor(colorId, context.theme)
+            //ContextCompat.getColor(context, colorId)
+        invalidate()
     }
 //TODO вынести в утилитные методы
     //то, что ниже

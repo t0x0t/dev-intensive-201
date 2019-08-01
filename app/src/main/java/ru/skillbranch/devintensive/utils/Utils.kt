@@ -49,11 +49,11 @@ object Utils {
     }
 
     fun transliteration(payload: String?, divider: String = " "): String {
-        if (payload == null || payload == "") {
-            return "Передай Значение, Подонок"
+        if (payload == null || payload == "" || payload == " ") {
+            return ""
         } else {
             //val payloadLow = payload.toLowerCase().trim().replace("\\s+".toRegex(), " ")
-            val translit: String = payload.replace(Regex("[абвгдеёжзийклмнопрстуфхцчшщъыьэюяАБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ]")) {
+            val translit: String = payload!!.replace(Regex("[абвгдеёжзийклмнопрстуфхцчшщъыьэюяАБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ]")) {
                 when (it.value) {
                     "а" -> "a"
                     "б" -> "b"
@@ -124,7 +124,18 @@ object Utils {
                     else -> it.value
                 }
             }
-            val parts: List<String> = translit.split(" ")
+            val tr = translit.replace("\\s+".toRegex(), " ")
+            val parts: List<String> = tr.split(" ")
+
+            if (parts.get(0) == "")
+            {
+                return parts.get(1)
+            }
+            if (parts.get(1)=="")
+            {
+                return parts.get(0)
+            }
+
             var n: Int = 0
             var translUpFirst: String = ""
             while (parts.size-1 != n) {

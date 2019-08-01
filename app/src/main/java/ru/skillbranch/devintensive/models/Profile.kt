@@ -17,7 +17,7 @@ data class Profile(
     val rating: Int = 0,
     val respect: Int = 0
 
-    ) {
+) {
 
     val rank: String = "Junior Android Developer"
     val nickName: String = Utils.transliteration("$firstName $lastName", "_") //TODO implement me

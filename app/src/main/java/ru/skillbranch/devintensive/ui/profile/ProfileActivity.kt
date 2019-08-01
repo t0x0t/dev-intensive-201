@@ -21,6 +21,7 @@ import ru.skillbranch.devintensive.models.Bender
 import ru.skillbranch.devintensive.R
 import ru.skillbranch.devintensive.extensions.*
 import ru.skillbranch.devintensive.models.Profile
+import ru.skillbranch.devintensive.ui.custom.CircleImageView
 import ru.skillbranch.devintensive.viewmodels.ProfileViewModel
 
 
@@ -39,11 +40,8 @@ class ProfileActivity : AppCompatActivity() {
         setContentView(R.layout.activity_profile)
         initViews(savedInstanceState)
         initViewModel()
-        //test
-        //var test = findViewById<View>(R.id.tv_nick_name) as TextView
-        //test.setText("123")
-        //test
         Log.d("M_ProfileActivity", "$viewFields")
+        Log.d("M_ProfileActivity", "")
 
     }
 

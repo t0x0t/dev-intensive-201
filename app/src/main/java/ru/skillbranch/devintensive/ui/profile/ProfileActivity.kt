@@ -38,8 +38,11 @@ class ProfileActivity : AppCompatActivity() {
         //TODO set custom Theme This before super and setContentView
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profile)
+        //var a1 = findViewById<CircleImageView>(R.id.iv_avatar)
+        //a1.setBorderWidth(50)
         initViews(savedInstanceState)
         initViewModel()
+
         Log.d("M_ProfileActivity", "$viewFields")
         Log.d("M_ProfileActivity", "")
 
@@ -97,6 +100,7 @@ class ProfileActivity : AppCompatActivity() {
             if(isEditMode) saveProfileInfo()
             isEditMode = !isEditMode
             showCurrentMode(isEditMode)
+
         }
 
         btn_switch_theme.setOnClickListener {

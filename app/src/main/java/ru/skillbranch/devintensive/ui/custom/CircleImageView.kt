@@ -25,8 +25,8 @@ class CircleImageView @JvmOverloads constructor(context: Context, attrs: Attribu
     ImageView(context, attrs, defStyleAttr) {
 
 
-    private var f: Int = Color.WHITE
-    private var CV_BORDERWIDTH = toDP(2)
+    var f: Int = Color.WHITE
+    var CV_BORDERWIDTH = toDP(2)
 
 
     init {
@@ -36,7 +36,6 @@ class CircleImageView @JvmOverloads constructor(context: Context, attrs: Attribu
             val a = context.obtainStyledAttributes(attrs, R.styleable.CircleImageView)
             f = a.getColor(R.styleable.CircleImageView_cv_borderColor, f)
             CV_BORDERWIDTH = a.getDimension(R.styleable.CircleImageView_cv_borderWidth, CV_BORDERWIDTH.toFloat()).toInt()
-
             Log.d("M_ProfileActivity", "$CV_BORDERWIDTH brd")
 
             a.recycle()
@@ -47,12 +46,13 @@ class CircleImageView @JvmOverloads constructor(context: Context, attrs: Attribu
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
         var a = Paint(Paint.ANTI_ALIAS_FLAG)
-
+        Log.d("M_ProfileActivity", "$CV_BORDERWIDTH brd1")
         a.color = f
 
         var b = CV_BORDERWIDTH.toFloat()
         a.strokeWidth = b
         a.setStyle(Paint.Style.STROKE)
+        Log.d("M_ProfileActivity", "$b brd2")
 
 
         var dra: Drawable? = ContextCompat.getDrawable(context, R.drawable.avatar_default)
@@ -65,7 +65,9 @@ class CircleImageView @JvmOverloads constructor(context: Context, attrs: Attribu
         canvas.clipPath(path)
 
         canvas.drawBitmap(bit, 0f, 0f, a)
-        canvas.drawCircle((getWidth() / 2).toFloat(), (getHeight() / 2).toFloat(), (toDP(getHeight()).toFloat() - (b / 2)), a)
+        Log.d("M_ProfileActivity", "h - ${(getWidth().toFloat())/2} ${getHeight().toFloat()/2}")
+        canvas.drawCircle((getWidth()).toFloat()/2, (getHeight()).toFloat()/2, ((getHeight()).toFloat()/2) - (b / 2), a)
+
 
     }
 
@@ -74,7 +76,7 @@ class CircleImageView @JvmOverloads constructor(context: Context, attrs: Attribu
 
     fun setBorderWidth(@Dimension dp: Int) {
         CV_BORDERWIDTH = dp
-        invalidate()
+        this.invalidate()
     }
 
     fun getBorderColor(): Int = f

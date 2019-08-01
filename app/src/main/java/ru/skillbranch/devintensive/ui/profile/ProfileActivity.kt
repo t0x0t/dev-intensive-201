@@ -99,8 +99,8 @@ class ProfileActivity : AppCompatActivity() {
         isEditMode = savedInstanceState?.getBoolean(IS_EDIT_MODE, false) ?: false
         showCurrentMode(isEditMode)
 
-        var a1 = findViewById<CircleImageView>(R.id.iv_avatar)
-        var bb = 1
+        //var a1 = findViewById<CircleImageView>(R.id.iv_avatar)
+        //var bb = 1
 
         btn_edit.setOnClickListener {
             if(isEditMode) saveProfileInfo()
@@ -108,12 +108,12 @@ class ProfileActivity : AppCompatActivity() {
             showCurrentMode(isEditMode)
 
 
-            a1.setBorderWidth(bb)
-            bb++
-            Log.d("M_ProfileActivity", "bordWidd: $a1")
-            var bb1 = a1.getBorderWidth()
-            Log.d("M_ProfileActivity", "bordWidd1: $bb1")
-            a1.setBorderColor(R.color.color_gray_dark)
+            //a1.setBorderWidth(bb)
+            //bb++
+            //Log.d("M_ProfileActivity", "bordWidd: $a1")
+            //var bb1 = a1.getBorderWidth()
+            //Log.d("M_ProfileActivity", "bordWidd1: $bb1")
+            //a1.setBorderColor(R.color.color_gray_dark)
 
         }
 

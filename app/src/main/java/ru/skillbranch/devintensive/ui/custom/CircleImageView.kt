@@ -9,6 +9,7 @@ import androidx.annotation.Dimension
 //import kotlinx.android.synthetic.main.activity_profile.view.*
 import android.graphics.*
 import android.graphics.drawable.Drawable
+import android.util.DisplayMetrics
 import android.util.Log
 import androidx.annotation.ColorInt
 import androidx.annotation.ColorRes
@@ -29,7 +30,7 @@ class CircleImageView @JvmOverloads constructor(context: Context, attrs: Attribu
 
 
     var f: Int = Color.WHITE
-    var CV_BORDERWIDTH = toDP(2)
+    var CV_BORDERWIDTH = dpToPx(context, 2)
 
 
     init {
@@ -55,7 +56,6 @@ class CircleImageView @JvmOverloads constructor(context: Context, attrs: Attribu
         var b = CV_BORDERWIDTH.toFloat()
         a.strokeWidth = b
         a.setStyle(Paint.Style.STROKE)
-        Log.d("M_ProfileActivity", "$b brd2")
 
 
         var dra: Drawable? = ContextCompat.getDrawable(context, R.drawable.avatar_default)
@@ -68,17 +68,21 @@ class CircleImageView @JvmOverloads constructor(context: Context, attrs: Attribu
         canvas.clipPath(path)
 
         canvas.drawBitmap(bit!!, 0f, 0f, a)
-        Log.d("M_ProfileActivity", "h - ${(getWidth().toFloat())/2} ${getHeight().toFloat()/2}")
+        //Log.d("M_ProfileActivity", "h - ${(getWidth().toFloat())/2} ${getHeight().toFloat()/2}")
         canvas.drawCircle((getWidth()).toFloat()/2, (getHeight()).toFloat()/2, ((getHeight()).toFloat()/2) - (b / 2), a)
 
 
     }
 
     @Dimension
-    fun getBorderWidth(): Int = dpInPx2DpInDp(CV_BORDERWIDTH)
+    fun getBorderWidth(): Int {
+        Log.d("M_ProfileActivity", "getBorder = ${pxToDp(context, CV_BORDERWIDTH)}")
+     return pxToDp(context, CV_BORDERWIDTH)
+    }
 
     fun setBorderWidth(@Dimension dp: Int) {
-        CV_BORDERWIDTH = toDP(dp)
+        Log.d("M_ProfileActivity", "setBorder = ${dpToPx(context, CV_BORDERWIDTH)}")
+        CV_BORDERWIDTH = dpToPx(context, dp)
         this.invalidate()
     }
 
@@ -99,12 +103,13 @@ class CircleImageView @JvmOverloads constructor(context: Context, attrs: Attribu
 //
 //TODO вынести в утилитные методы
     //то, что ниже
-    fun toDP(px: Int): Int {
-        return (px * Resources.getSystem().displayMetrics.density).toInt()
+    fun dpToPx(context: Context, dp: Int): Int {
+        return (dp * context.resources.displayMetrics.density + 0.5f).toInt()
     }
 
-    fun dpInPx2DpInDp(dp: Int): Int {
-        return (dp / (Resources.getSystem().displayMetrics.density).toInt())
+    fun pxToDp(context: Context, px: Int): Int {
+
+        return (px / context.resources.displayMetrics.density + 0.5f).toInt()
     }
 
 }

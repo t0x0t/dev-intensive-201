@@ -1,12 +1,10 @@
 package ru.skillbranch.devintensive.ui.profile
 
-import android.graphics.Color
-import android.graphics.ColorFilter
-import android.graphics.PorterDuff
-import android.graphics.PorterDuffColorFilter
+import android.graphics.*
 import androidx.appcompat.app.AppCompatActivity
 import android.util.Log
 import android.os.Bundle
+import android.util.AttributeSet
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.EditText
@@ -19,11 +17,13 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import kotlinx.android.synthetic.main.activity_profile.*
+import kotlinx.android.synthetic.main.activity_profile.view.*
 import ru.skillbranch.devintensive.models.Bender
 import ru.skillbranch.devintensive.R
 import ru.skillbranch.devintensive.extensions.*
 import ru.skillbranch.devintensive.models.Profile
 import ru.skillbranch.devintensive.ui.custom.CircleImageView
+import ru.skillbranch.devintensive.utils.Utils
 import ru.skillbranch.devintensive.viewmodels.ProfileViewModel
 
 
@@ -40,14 +40,18 @@ class ProfileActivity : AppCompatActivity() {
         //TODO set custom Theme This before super and setContentView
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profile)
-        //var a1 = findViewById<CircleImageView>(R.id.iv_avatar)
+        //var a1 = findViewById<EditText>(R.id.et_first_name)
+        //var t = et_first_name.text
+        //Log.d("M_ProfileActivity", "${t}")
+        //Log.d("M_ProfileActivity", "test ${R.id.et_first_name}")
         //a1.setBorderWidth(50)
         initViews(savedInstanceState)
         initViewModel()
 
 
         Log.d("M_ProfileActivity", "$viewFields")
-        Log.d("M_ProfileActivity", "")
+        Log.d("M_ProfileActivity", " ")
+
 
     }
 
@@ -63,6 +67,7 @@ class ProfileActivity : AppCompatActivity() {
         viewModel.getProfileData().observe(this, Observer { updateUI(it) })
         viewModel.getTheme().observe(this, Observer { updateTheme(it) })
 
+
     }
 
     private fun updateTheme(mode: Int) {
@@ -75,13 +80,14 @@ class ProfileActivity : AppCompatActivity() {
        // profile.toMap()
             for ((k, v) in viewFields) {
                 v.text = profile.toMap()[k].toString()
-            }
-        //реализация
-           // var test = viewFields["nickname"]
-            //test?.setText("${viewFields["firstName"]?.text} ${viewFields["lastName"]?.text}")
-        //которую нужно сделать в дата классе
+                }
+        var initials = Utils.toInitials(profile.firstName, profile.lastName)
+        iv_avatar.text=Utils.toInitials(profile.firstName, profile.lastName)
 
+        Log.d("M_ProfileActivity", "updateUI :: ${Utils.toInitials(profile.firstName, profile.lastName)}")
     }
+
+
 
     private fun initViews(savedInstanceState: Bundle?) {
 
@@ -99,7 +105,8 @@ class ProfileActivity : AppCompatActivity() {
         isEditMode = savedInstanceState?.getBoolean(IS_EDIT_MODE, false) ?: false
         showCurrentMode(isEditMode)
 
-        var a1 = findViewById<CircleImageView>(R.id.iv_avatar)
+        //var a1 = findViewById<CircleImageView>(R.id.iv_avatar)
+        //a1.setBackgroundColor(Color.BLACK)
         //var bb = 1
 
         btn_edit.setOnClickListener {
@@ -109,7 +116,7 @@ class ProfileActivity : AppCompatActivity() {
 
 
             //a1.setBorderWidth(10)
-            a1.getBorderWidth()
+            //a1.getBorderWidth()
             //bb++
             //Log.d("M_ProfileActivity", "bordWidd: $a1")
             //var bb1 = a1.getBorderWidth()
@@ -120,6 +127,7 @@ class ProfileActivity : AppCompatActivity() {
 
         btn_switch_theme.setOnClickListener {
             viewModel.switchTheme()
+
         }
     }
 
@@ -169,5 +177,4 @@ class ProfileActivity : AppCompatActivity() {
                 viewModel.saveProfileData(this)
         }
     }
-
 }

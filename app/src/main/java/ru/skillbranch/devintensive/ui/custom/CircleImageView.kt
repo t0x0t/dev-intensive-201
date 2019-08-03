@@ -19,9 +19,12 @@ import androidx.annotation.ColorRes
 import androidx.annotation.NonNull
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
+import androidx.core.graphics.createBitmap
 //import androidx.core.content.res.ResourcesCompat.getColor
 //import androidx.core.content.res.ResourcesCompat.getColorStateList
 import androidx.core.graphics.drawable.toBitmap
+import androidx.core.graphics.drawable.toDrawable
+import androidx.core.view.drawToBitmap
 import kotlinx.android.synthetic.main.activity_profile.*
 import kotlinx.android.synthetic.main.activity_profile.view.*
 import ru.skillbranch.devintensive.models.Profile
@@ -46,7 +49,13 @@ class CircleImageView @JvmOverloads constructor(
 
     var f: Int = Color.WHITE
     var CV_BORDERWIDTH = dpToPx(context, 2)
-    var canvas = Canvas()
+
+    //вот эти две строки ниже комментария. Если вместо них написать просто var canvas = Canvas()
+    //и раскомментировать строки в onDraw(), то все работает, только получение drawable дает null
+
+    var holstBmp = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
+    var canvas = Canvas(holstBmp)
+
     var text: String? = null
 
 
@@ -65,11 +74,17 @@ class CircleImageView @JvmOverloads constructor(
         }
     }
 
+
     override fun onDraw(canvas: Canvas) {
-        super.onDraw(canvas)
-        this.canvas = canvas
+
+        //var holstBmp = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
+        this.canvas = Canvas(holstBmp)
+        //canvas.drawBitmap(holstBmp, 0f, 0f, null)
+
+
         if (text != null) {
             createAvatar(text)
+            var d = 0
         } else {
             defAvatarWithBorder()
         }
@@ -108,10 +123,9 @@ class CircleImageView @JvmOverloads constructor(
     }
 
     fun createAvatar(initials: String?, theme:Resources.Theme = context.theme) {
-        if (initials == null) {
-            return
-        } else {
 
+            //var outputBmp = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
+            //canvas = Canvas(outputBmp)
             var a = Paint(Paint.ANTI_ALIAS_FLAG)
             a.setStyle(Paint.Style.FILL)
             val color = TypedValue()
@@ -125,8 +139,11 @@ class CircleImageView @JvmOverloads constructor(
             a.textSize = (height / 2).toFloat()
             a.textAlign = Paint.Align.CENTER
 
-            canvas.drawText(initials, (height.toFloat() / 2), ((height / 2) - ((a.descent() + a.ascent()) / 2)), a)
-        }
+            canvas.drawText(initials!!, (height.toFloat() / 2), ((height / 2) - ((a.descent() + a.ascent()) / 2)), a)
+
+        var d = 0
+
+
     }
 
     @Dimension

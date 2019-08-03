@@ -1,6 +1,7 @@
 package ru.skillbranch.devintensive.ui.profile
 
 import android.graphics.*
+import android.graphics.drawable.Drawable
 import androidx.appcompat.app.AppCompatActivity
 import android.util.Log
 import android.os.Bundle
@@ -81,10 +82,14 @@ class ProfileActivity : AppCompatActivity() {
             for ((k, v) in viewFields) {
                 v.text = profile.toMap()[k].toString()
                 }
-        var initials = Utils.toInitials(profile.firstName, profile.lastName)
+
+        var a = iv_avatar.drawable
         iv_avatar.text=Utils.toInitials(profile.firstName, profile.lastName)
 
+
+
         Log.d("M_ProfileActivity", "updateUI :: ${Utils.toInitials(profile.firstName, profile.lastName)}")
+        //Log.d("M_ProfileActivity", "null A? :: $a")
     }
 
 

@@ -78,8 +78,8 @@ class CircleImageView @JvmOverloads constructor(
     override fun onDraw(canvas: Canvas) {
 
         //var holstBmp = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
-        this.canvas = Canvas(holstBmp)
-        //canvas.drawBitmap(holstBmp, 0f, 0f, null)
+        //this.canvas = Canvas(holstBmp)
+        canvas.drawBitmap(holstBmp, 0f, 0f, null)
 
 
         if (text != null) {

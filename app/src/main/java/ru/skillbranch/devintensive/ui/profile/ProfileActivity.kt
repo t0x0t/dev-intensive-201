@@ -43,6 +43,8 @@ class ProfileActivity : AppCompatActivity() {
     lateinit var viewFields: Map<String, TextView>
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        setTheme(R.style.AppTheme)
+
         //TODO set custom Theme This before super and setContentView
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profile)
@@ -204,7 +206,7 @@ class ProfileActivity : AppCompatActivity() {
 
             theme.resolveAttribute(R.attr.colorAccent, color, true)
             a.setColor(color.data)
-            
+
 
             canvas.drawCircle(w.toFloat()/2, h.toFloat()/2, (h.toFloat() / 2), a)
 

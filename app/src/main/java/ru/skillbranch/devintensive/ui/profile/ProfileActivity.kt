@@ -204,6 +204,7 @@ class ProfileActivity : AppCompatActivity() {
 
             theme.resolveAttribute(R.attr.colorAccent, color, true)
             a.setColor(color.data)
+            
 
             canvas.drawCircle(w.toFloat()/2, h.toFloat()/2, (h.toFloat() / 2), a)
 

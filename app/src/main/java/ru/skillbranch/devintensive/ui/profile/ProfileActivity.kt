@@ -193,8 +193,10 @@ class ProfileActivity : AppCompatActivity() {
     private fun genDrawable(initials:String?) {
         if (initials == null) return
         else {
-            var px = Utils.convertDpToPx(App.applicationContext(), 112)
-            var holstBmp = Bitmap.createBitmap(px, px, Bitmap.Config.ARGB_8888)
+            val w = iv_avatar.layoutParams.width
+            val h = iv_avatar.layoutParams.height
+            //var px = Utils.convertDpToPx(App.applicationContext(), 112)
+            var holstBmp = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888)
             var canvas = Canvas(holstBmp)
             var a = Paint(Paint.ANTI_ALIAS_FLAG)
             a.setStyle(Paint.Style.FILL)
@@ -203,13 +205,13 @@ class ProfileActivity : AppCompatActivity() {
             theme.resolveAttribute(R.attr.colorAccent, color, true)
             a.setColor(color.data)
 
-            canvas.drawCircle(px.toFloat()/2, px.toFloat()/2, (px.toFloat() / 2), a)
+            canvas.drawCircle(w.toFloat()/2, h.toFloat()/2, (h.toFloat() / 2), a)
 
             a.color = Color.WHITE
-            a.textSize = px.toFloat()/2
+            a.textSize = w.toFloat()/2
             a.textAlign = Paint.Align.CENTER
 
-            canvas.drawText(initials!!, (px.toFloat() / 2), ((px.toFloat() / 2) - ((a.descent() + a.ascent()) / 2)), a)
+            canvas.drawText(initials!!, (h.toFloat() / 2), ((w.toFloat() / 2) - ((a.descent() + a.ascent()) / 2)), a)
             canvas.drawBitmap(holstBmp, 0f, 0f, a)
             iv_avatar.setImageDrawable(BitmapDrawable(getResources(), holstBmp))
         }

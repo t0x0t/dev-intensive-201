@@ -88,7 +88,6 @@ class CircleImageView @JvmOverloads constructor(
         if (text != null) {
             createAvatar(text)
         } else {
-            return
             defAvatarWithBorder()
 
         }

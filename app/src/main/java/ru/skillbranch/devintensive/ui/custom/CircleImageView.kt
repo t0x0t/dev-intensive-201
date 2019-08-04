@@ -5,7 +5,6 @@ import android.content.res.Resources
 import android.util.AttributeSet
 import android.widget.ImageView
 import ru.skillbranch.devintensive.R
-import androidx.annotation.Dimension
 //import kotlinx.android.synthetic.main.activity_profile.view.*
 import android.graphics.*
 import android.graphics.drawable.Drawable
@@ -14,9 +13,7 @@ import android.util.DisplayMetrics
 import android.util.Log
 import android.util.TypedValue
 import android.widget.EditText
-import androidx.annotation.ColorInt
-import androidx.annotation.ColorRes
-import androidx.annotation.NonNull
+import androidx.annotation.*
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.graphics.createBitmap
@@ -29,8 +26,16 @@ import kotlinx.android.synthetic.main.activity_profile.*
 import kotlinx.android.synthetic.main.activity_profile.view.*
 import ru.skillbranch.devintensive.models.Profile
 import ru.skillbranch.devintensive.ui.profile.ProfileActivity
-import ru.skillbranch.devintensive.utils.Utils
+import android.graphics.*
+import android.graphics.Bitmap.Config
+import android.graphics.PorterDuff.Mode
+import android.graphics.drawable.BitmapDrawable
 
+import androidx.annotation.ColorRes
+
+import ru.skillbranch.devintensive.App
+import ru.skillbranch.devintensive.utils.Utils
+import kotlin.math.min
 //import androidx.core.graphics.toColor
 //import ru.skillbranch.devintensive.App
 
@@ -50,12 +55,8 @@ class CircleImageView @JvmOverloads constructor(
     var f: Int = Color.WHITE
     var CV_BORDERWIDTH = dpToPx(context, 2)
 
-    //вот эти две строки ниже комментария. Если вместо них написать просто var canvas = Canvas()
-    //и раскомментировать строки в onDraw(), то все работает, только получение drawable дает null
-
-    var holstBmp = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
+    var holstBmp = Bitmap.createBitmap(100, 100, Bitmap.Config.ARGB_8888)
     var canvas = Canvas(holstBmp)
-
     var text: String? = null
 
 
@@ -70,6 +71,7 @@ class CircleImageView @JvmOverloads constructor(
             Log.d("M_ProfileActivity", "$CV_BORDERWIDTH brd")
 
             a.recycle()
+            setImageDrawable(BitmapDrawable(getResources(), holstBmp))
 
         }
     }
@@ -77,18 +79,25 @@ class CircleImageView @JvmOverloads constructor(
 
     override fun onDraw(canvas: Canvas) {
 
-        //var holstBmp = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
-        //this.canvas = Canvas(holstBmp)
-        canvas.drawBitmap(holstBmp, 0f, 0f, null)
+        holstBmp = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
+        this.canvas = Canvas(holstBmp)
+
+        canvas.drawBitmap(holstBmp, 0f ,0f ,null)
+        //iv_avatar.setImageDrawable(BitmapDrawable(getResources(), holstBmp))
 
 
         if (text != null) {
             createAvatar(text)
-            var d = 0
+            //setImageDrawable(BitmapDrawable(getResources(), holstBmp))
+            //iv_avatar.setImageDrawable(BitmapDrawable(getResources(), holstBmp))
         } else {
             defAvatarWithBorder()
+            //iv_avatar.setImageDrawable(BitmapDrawable(getResources(), holstBmp))
+
         }
     }
+
+
 
     fun defAvatarWithBorder() {
         Log.d("M_ProfileActivity", "Tama!!!")
@@ -140,10 +149,9 @@ class CircleImageView @JvmOverloads constructor(
             a.textAlign = Paint.Align.CENTER
 
             canvas.drawText(initials!!, (height.toFloat() / 2), ((height / 2) - ((a.descent() + a.ascent()) / 2)), a)
-
-        var d = 0
-
-
+            canvas.drawBitmap(holstBmp, 0f, 0f, null)
+        Log.d("M_ProfileActivity", ":: $height :: $width ::")
+            //setImageDrawable(BitmapDrawable(getResources(), holstBmp))
     }
 
     @Dimension
@@ -170,12 +178,11 @@ class CircleImageView @JvmOverloads constructor(
         invalidate()
     }
 
-    //   //
-    //
+////////////////////////////////
+//
 //
 //TODO вынести в утилитные методы
     //то, что ниже
-
 
     fun dpToPx(context: Context, dp: Int): Int {
         return (dp * context.resources.displayMetrics.density + 0.5f).toInt()
@@ -187,6 +194,5 @@ class CircleImageView @JvmOverloads constructor(
     }
 
 }
-
 
 

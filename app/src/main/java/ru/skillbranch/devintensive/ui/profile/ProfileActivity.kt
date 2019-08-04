@@ -1,11 +1,13 @@
 package ru.skillbranch.devintensive.ui.profile
 
 import android.graphics.*
+import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
 import androidx.appcompat.app.AppCompatActivity
 import android.util.Log
 import android.os.Bundle
 import android.util.AttributeSet
+import android.util.TypedValue
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.EditText
@@ -13,6 +15,8 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.annotation.ColorRes
 import androidx.annotation.Dimension
+import androidx.core.graphics.drawable.toBitmap
+import androidx.core.graphics.drawable.toDrawable
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
@@ -83,9 +87,11 @@ class ProfileActivity : AppCompatActivity() {
                 v.text = profile.toMap()[k].toString()
                 }
 
-        var a = iv_avatar.drawable
-        iv_avatar.text=Utils.toInitials(profile.firstName, profile.lastName)
-
+        //genAvaColorBmp(Utils.toInitials(profile.firstName, profile.lastName))
+        iv_avatar.text = Utils.toInitials(profile.firstName, profile.lastName)
+        genDrawable(Utils.toInitials(profile.firstName, profile.lastName))
+        var a = iv_avatar.getDrawable()
+        var b = 0
 
 
         Log.d("M_ProfileActivity", "updateUI :: ${Utils.toInitials(profile.firstName, profile.lastName)}")
@@ -182,4 +188,29 @@ class ProfileActivity : AppCompatActivity() {
                 viewModel.saveProfileData(this)
         }
     }
+
+    private fun genDrawable(initials:String?) {
+        if (initials == null) return
+        else {
+            var holstBmp = Bitmap.createBitmap(336, 336, Bitmap.Config.ARGB_8888)
+            var canvas = Canvas(holstBmp)
+            var a = Paint(Paint.ANTI_ALIAS_FLAG)
+            a.setStyle(Paint.Style.FILL)
+            val color = TypedValue()
+
+            theme.resolveAttribute(R.attr.colorAccent, color, true)
+            a.setColor(color.data)
+
+            canvas.drawCircle(336f/2, 336f/2, (336f / 2), a)
+
+            a.color = Color.WHITE
+            a.textSize = 336f/2
+            a.textAlign = Paint.Align.CENTER
+
+            canvas.drawText(initials!!, (holstBmp.height.toFloat() / 2), ((holstBmp.height / 2) - ((a.descent() + a.ascent()) / 2)), a)
+            canvas.drawBitmap(holstBmp, 0f, 0f, a)
+            iv_avatar.setImageDrawable(BitmapDrawable(getResources(), holstBmp))
+        }
+    }
+
 }

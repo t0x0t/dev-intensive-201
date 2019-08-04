@@ -59,7 +59,7 @@
     </style>
 
 
-    <style name="AppTheme.SplashTheme">
+    <style name="SplashTheme" parent="AppTheme">
         <item name="android:windowBackground">@drawable/ic_splash</item>
     </style>
 </resources>

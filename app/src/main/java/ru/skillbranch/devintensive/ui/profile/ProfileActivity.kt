@@ -23,6 +23,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import kotlinx.android.synthetic.main.activity_profile.*
 import kotlinx.android.synthetic.main.activity_profile.view.*
+import ru.skillbranch.devintensive.App
 import ru.skillbranch.devintensive.models.Bender
 import ru.skillbranch.devintensive.R
 import ru.skillbranch.devintensive.extensions.*
@@ -90,7 +91,7 @@ class ProfileActivity : AppCompatActivity() {
         //genAvaColorBmp(Utils.toInitials(profile.firstName, profile.lastName))
         iv_avatar.text = Utils.toInitials(profile.firstName, profile.lastName)
         genDrawable(Utils.toInitials(profile.firstName, profile.lastName))
-        var a = iv_avatar.getDrawable()
+        //var a = iv_avatar.getDrawable()
         var b = 0
 
 
@@ -192,7 +193,8 @@ class ProfileActivity : AppCompatActivity() {
     private fun genDrawable(initials:String?) {
         if (initials == null) return
         else {
-            var holstBmp = Bitmap.createBitmap(336, 336, Bitmap.Config.ARGB_8888)
+            var px = Utils.convertDpToPx(App.applicationContext(), 112)
+            var holstBmp = Bitmap.createBitmap(px, px, Bitmap.Config.ARGB_8888)
             var canvas = Canvas(holstBmp)
             var a = Paint(Paint.ANTI_ALIAS_FLAG)
             a.setStyle(Paint.Style.FILL)
@@ -201,13 +203,13 @@ class ProfileActivity : AppCompatActivity() {
             theme.resolveAttribute(R.attr.colorAccent, color, true)
             a.setColor(color.data)
 
-            canvas.drawCircle(336f/2, 336f/2, (336f / 2), a)
+            canvas.drawCircle(px.toFloat()/2, px.toFloat()/2, (px.toFloat() / 2), a)
 
             a.color = Color.WHITE
-            a.textSize = 336f/2
+            a.textSize = px.toFloat()/2
             a.textAlign = Paint.Align.CENTER
 
-            canvas.drawText(initials!!, (holstBmp.height.toFloat() / 2), ((holstBmp.height / 2) - ((a.descent() + a.ascent()) / 2)), a)
+            canvas.drawText(initials!!, (px.toFloat() / 2), ((px.toFloat() / 2) - ((a.descent() + a.ascent()) / 2)), a)
             canvas.drawBitmap(holstBmp, 0f, 0f, a)
             iv_avatar.setImageDrawable(BitmapDrawable(getResources(), holstBmp))
         }

@@ -71,7 +71,6 @@ class CircleImageView @JvmOverloads constructor(
             Log.d("M_ProfileActivity", "$CV_BORDERWIDTH brd")
 
             a.recycle()
-            setImageDrawable(BitmapDrawable(getResources(), holstBmp))
 
         }
     }
@@ -88,11 +87,9 @@ class CircleImageView @JvmOverloads constructor(
 
         if (text != null) {
             createAvatar(text)
-            //setImageDrawable(BitmapDrawable(getResources(), holstBmp))
-            //iv_avatar.setImageDrawable(BitmapDrawable(getResources(), holstBmp))
         } else {
+            return
             defAvatarWithBorder()
-            //iv_avatar.setImageDrawable(BitmapDrawable(getResources(), holstBmp))
 
         }
     }
@@ -135,7 +132,7 @@ class CircleImageView @JvmOverloads constructor(
 
             //var outputBmp = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
             //canvas = Canvas(outputBmp)
-            var a = Paint(Paint.ANTI_ALIAS_FLAG)
+            /*var a = Paint(Paint.ANTI_ALIAS_FLAG)
             a.setStyle(Paint.Style.FILL)
             val color = TypedValue()
 
@@ -152,6 +149,8 @@ class CircleImageView @JvmOverloads constructor(
             canvas.drawBitmap(holstBmp, 0f, 0f, null)
         Log.d("M_ProfileActivity", ":: $height :: $width ::")
             //setImageDrawable(BitmapDrawable(getResources(), holstBmp))
+    */
+        iv_avatar.drawable.draw(canvas)
     }
 
     @Dimension

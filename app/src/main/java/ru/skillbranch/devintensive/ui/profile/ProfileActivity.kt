@@ -6,6 +6,8 @@ import android.graphics.drawable.Drawable
 import androidx.appcompat.app.AppCompatActivity
 import android.util.Log
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.AttributeSet
 import android.util.TypedValue
 import android.view.View
@@ -48,6 +50,8 @@ class ProfileActivity : AppCompatActivity() {
         //TODO set custom Theme This before super and setContentView
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profile)
+
+
         //var a1 = findViewById<EditText>(R.id.et_first_name)
         //var t = et_first_name.text
         //Log.d("M_ProfileActivity", "${t}")
@@ -74,8 +78,11 @@ class ProfileActivity : AppCompatActivity() {
         viewModel = ViewModelProviders.of(this).get(ProfileViewModel::class.java)
         viewModel.getProfileData().observe(this, Observer { updateUI(it) })
         viewModel.getTheme().observe(this, Observer { updateTheme(it) })
+        viewModel.getIsRepoError().observe(this, Observer { updateRepository(it) })
+    }
 
-
+    private fun updateRepository(isError: Boolean) {
+        if (isError) et_repository.text.clear()
     }
 
     private fun updateTheme(mode: Int) {
@@ -85,22 +92,13 @@ class ProfileActivity : AppCompatActivity() {
     }
 
     private fun updateUI(profile: Profile) {
-       // profile.toMap()
-            for ((k, v) in viewFields) {
-                v.text = profile.toMap()[k].toString()
-                }
-
-        //genAvaColorBmp(Utils.toInitials(profile.firstName, profile.lastName))
+        // profile.toMap()
+        for ((k, v) in viewFields) {
+            v.text = profile.toMap()[k].toString()
+        }
         iv_avatar.text = Utils.toInitials(profile.firstName, profile.lastName)
         genDrawable(Utils.toInitials(profile.firstName, profile.lastName))
-        //var a = iv_avatar.getDrawable()
-        var b = 0
-
-
-        Log.d("M_ProfileActivity", "updateUI :: ${Utils.toInitials(profile.firstName, profile.lastName)}")
-        //Log.d("M_ProfileActivity", "null A? :: $a")
     }
-
 
 
     private fun initViews(savedInstanceState: Bundle?) {
@@ -114,6 +112,7 @@ class ProfileActivity : AppCompatActivity() {
             "repository" to et_repository,
             "rating" to tv_rating,
             "respect" to tv_respect
+
         )
 
         isEditMode = savedInstanceState?.getBoolean(IS_EDIT_MODE, false) ?: false
@@ -124,7 +123,9 @@ class ProfileActivity : AppCompatActivity() {
         //var bb = 1
 
         btn_edit.setOnClickListener {
-            if(isEditMode) saveProfileInfo()
+            viewModel.onRepoEditCompleted(wr_repository.isErrorEnabled)
+
+            if (isEditMode) saveProfileInfo()
             isEditMode = !isEditMode
             showCurrentMode(isEditMode)
 
@@ -141,7 +142,6 @@ class ProfileActivity : AppCompatActivity() {
 
         btn_switch_theme.setOnClickListener {
             viewModel.switchTheme()
-
         }
     }
 
@@ -179,6 +179,19 @@ class ProfileActivity : AppCompatActivity() {
             background.colorFilter = filter
             setImageDrawable(icon)
         }
+        if (isEdit){
+            validateGithubUserUrl()
+        }
+
+        else
+        {
+            if (wr_repository.isErrorEnabled){
+                et_repository.setText("")
+                wr_repository.isErrorEnabled = false
+
+            }
+        }
+
     }
 
     private fun saveProfileInfo() {
@@ -188,11 +201,11 @@ class ProfileActivity : AppCompatActivity() {
             about = et_about.text.toString(),
             repository = et_repository.text.toString()
         ).apply {
-                viewModel.saveProfileData(this)
+            viewModel.saveProfileData(this)
         }
     }
 
-    private fun genDrawable(initials:String?) {
+    private fun genDrawable(initials: String?) {
         if (initials == null) return
         else {
             val w = iv_avatar.layoutParams.width
@@ -208,16 +221,49 @@ class ProfileActivity : AppCompatActivity() {
             a.setColor(color.data)
 
 
-            canvas.drawCircle(w.toFloat()/2, h.toFloat()/2, (h.toFloat() / 2), a)
+            canvas.drawCircle(w.toFloat() / 2, h.toFloat() / 2, (h.toFloat() / 2), a)
 
             a.color = Color.WHITE
-            a.textSize = w.toFloat()/2
+            a.textSize = w.toFloat() / 2
             a.textAlign = Paint.Align.CENTER
 
             canvas.drawText(initials!!, (h.toFloat() / 2), ((w.toFloat() / 2) - ((a.descent() + a.ascent()) / 2)), a)
             canvas.drawBitmap(holstBmp, 0f, 0f, a)
             iv_avatar.setImageDrawable(BitmapDrawable(getResources(), holstBmp))
         }
+    }
+
+    fun validateGithubUserUrl() {
+        et_repository.addTextChangedListener(object : TextWatcher {
+
+
+            override fun afterTextChanged(s: Editable?) {
+
+            }
+
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                    //it's a kind of magic
+                if(et_repository.text.toString().contains("^(http://|https://|)(www[\\.]|)github[\\.]com/\\w{1,38}(-|)(\\w{0,38})$".toRegex()) &&
+                    et_repository.text.toString().contains("^(http://|https://|)(www[\\.]|)github[\\.]com/.{1,39}".toRegex()) &&
+                        et_repository.text.toString().last().toString().equals("-").not() &&
+                        et_repository.text.toString().contains("^(http://|https://|)(www[\\.]|)github[\\.]com/(enterprise|features|topics|collections|trending|events|marketplace|pricing|nonprofit|customer-stories|security|login|join)$".toRegex()).not()
+                )
+                {
+                    wr_repository.isErrorEnabled = false
+                }
+                else {
+
+                    wr_repository.isErrorEnabled = true
+                    wr_repository.setError("Невалидный адрес репозитория")
+                }
+            }
+
+        })
     }
 
 }

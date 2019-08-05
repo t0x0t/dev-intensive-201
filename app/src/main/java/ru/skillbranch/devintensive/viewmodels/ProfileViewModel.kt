@@ -40,6 +40,7 @@ class ProfileViewModel : ViewModel() {
         repository.saveProfile(profile)
         profileData.value = profile
 
+        
     }
 
     fun switchTheme() {
